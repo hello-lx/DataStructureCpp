@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/m.dir/main.cpp.o  -o m -Wl,-rpath,/home/yuan/XSpace/Study/DataStructure/01-DynamicArray/build libsharedLib.so 
