@@ -6,9 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/yuan/XSpace/Study/DataStructure/01-DynamicArray/DynamicArray.cpp
+/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/DynamicArray.cpp
 DynamicArray.h
-/home/yuan/XSpace/Study/DataStructure/01-DynamicArray/DynamicArray.h
+/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/DynamicArray.h
+stdio.h
+-
+stdlib.h
+-
+iostream
+-
+cstring
+-
 
-/home/yuan/XSpace/Study/DataStructure/01-DynamicArray/DynamicArray.h
+/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/DynamicArray.h
 

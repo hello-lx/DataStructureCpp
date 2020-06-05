@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/m.dir/main.cpp.o  -o m -Wl,-rpath,/home/yuan/XSpace/Study/DataStructureCpp/03-企业链表/build libsharedLib.so 

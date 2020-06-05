@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 Dynary_Array* initArr(){
@@ -17,7 +18,7 @@ Dynary_Array* initArr(){
 
 Dynary_Array* addArr(Dynary_Array* arr, int value){
     if(arr == NULL)
-        return;
+        return NULL;
     
     if(arr->size == arr->capacity){
         int* newSpace = (int*)malloc(sizeof(int) * arr->capacity * 2);
@@ -36,9 +37,9 @@ Dynary_Array* addArr(Dynary_Array* arr, int value){
 
 Dynary_Array* removeArrByPos(Dynary_Array* arr, int pos){
     if(arr->size == 0)
-        return;
+        return NULL;
     if(pos < 0 || pos > arr->size)
-        return;
+        return NULL;
     
     for(int i=pos; i<arr->size-1; i++)
         arr->pAddr[i] = arr->pAddr[i+1];
@@ -51,12 +52,12 @@ Dynary_Array* removeArrByPos(Dynary_Array* arr, int pos){
 
 Dynary_Array* removeArrByValue(Dynary_Array* arr, int val){
     if(arr->size == 0)
-        return;
+        return NULL;
     
     int pos = findArr(arr, val);
 
     if(pos == -1)
-        return;
+        return NULL;
     
     for(int i=pos; i<arr->size-1; i++)
         arr->pAddr[i] = arr->pAddr[i+1];
@@ -69,7 +70,7 @@ Dynary_Array* removeArrByValue(Dynary_Array* arr, int val){
 
 Dynary_Array* editArr(Dynary_Array* arr, int pos, int val){
     if(arr == NULL || pos < 0 || pos > arr->size)
-        return;
+        return NULL;
     
     arr->pAddr[pos] = val;
 
@@ -107,4 +108,11 @@ void Clear_Array(Dynary_Array* arr){
     if(arr == NULL)
         return;
     arr->size = 0;
+}
+
+
+int  At_Array(Dynary_Array* arr, int pos){
+    if (arr == NULL)
+        return -1;
+    return arr->pAddr[pos];
 }

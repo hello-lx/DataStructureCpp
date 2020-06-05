@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yuan/XSpace/Study/DataStructureCpp/05-栈的顺序存储/DynamicArray.cpp
+DynamicArray.h
+/home/yuan/XSpace/Study/DataStructureCpp/05-栈的顺序存储/DynamicArray.h
+
+/home/yuan/XSpace/Study/DataStructureCpp/05-栈的顺序存储/DynamicArray.h
+stdio.h
+-
+stdlib.h
+-
+

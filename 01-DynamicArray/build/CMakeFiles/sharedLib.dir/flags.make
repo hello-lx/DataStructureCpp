@@ -6,5 +6,5 @@ CXX_FLAGS = -fPIC
 
 CXX_DEFINES = -DsharedLib_EXPORTS
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/. 
 

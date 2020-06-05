@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yuan/XSpace/Study/DataStructureCpp/03-企业链表/DynamicArray.cpp
+DynamicArray.h
+/home/yuan/XSpace/Study/DataStructureCpp/03-企业链表/DynamicArray.h
+stdlib.h
+-
+stdio.h
+-
+
+/home/yuan/XSpace/Study/DataStructureCpp/03-企业链表/DynamicArray.h
+
