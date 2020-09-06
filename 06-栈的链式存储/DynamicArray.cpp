@@ -39,8 +39,8 @@ int isEmpty(LinkStack* stack){
         if(stack == NULL)
                 return LINKSTACK_FALSE;
         if(stack->size == 0)
-                return LINKSTACK_FALSE;
-        return LINKSTACK_TRUE;
+                return LINKSTACK_TRUE;
+        return LINKSTACK_FALSE;
 }
 
 int sizeLinkStack(LinkStack* stack){
