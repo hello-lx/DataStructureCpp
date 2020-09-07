@@ -1,4 +1,4 @@
 # IDE
 *.vscode
 *.kdev4
-
+*build/
