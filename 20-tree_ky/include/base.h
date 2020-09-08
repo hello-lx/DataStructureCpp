@@ -16,4 +16,20 @@ struct BinTN   // binary tree node
         BinTN(T x=T()): name(x), left(NULL), right(NULL){}
 };
 
+template<typename T>
+class BTreeArr
+{
+private:
+        T[] data;
+        int count;
+
+public:
+        BTreeArr(int count){
+                
+        }
+        
+};
+
+
+
 #endif
