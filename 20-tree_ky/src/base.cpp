@@ -33,13 +33,15 @@ void Node::DeleteNode(){
 
 Node *Node::SearchNode(int nodeIndex){
         
+        cout << this->index << '\t' << nodeIndex << endl;
+
         if(this->index == nodeIndex)
                 return this;
         
         
         Node *temp = NULL;
 
-        if(this->pLChild == NULL){
+        if(this->pLChild != NULL){
                 if(this->pLChild->index == nodeIndex)
                 {
                         return this->pLChild;
@@ -52,7 +54,7 @@ Node *Node::SearchNode(int nodeIndex){
                 }
         }
         
-        if(this->pRChild == NULL){
+        if(this->pRChild != NULL){
 
                 if(this->pRChild->index == nodeIndex)
                 {
@@ -91,7 +93,10 @@ bool Tree::AddNode(int nodeIndex, int direction, Node* pNode)
         Node* temp = SearchNode(nodeIndex);
         
         if(temp == NULL)
+        {
+                cout << "temp is null" << endl;
                 return false;
+        }
         
         Node* node = new Node();
         if(node == NULL)
@@ -129,6 +134,11 @@ void Tree::showTree(Node* node){
                 return;
 
         cout << node->index << '\t' << node->data <<endl;
+        if(node->pLChild == NULL)
+                cout << "pLChild is null" << endl;
+        if(node->pRChild == NULL)
+                cout << "pRChild is null" << endl;
+        // cout << node->pLChild <<  '\t'  << node->pRChild << endl;
         showTree(node->pLChild);
         showTree(node->pRChild);
 }
