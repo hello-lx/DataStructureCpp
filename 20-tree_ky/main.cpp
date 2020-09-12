@@ -34,7 +34,7 @@ void binTreeInit(Tree* tree){
 
         // Tree *tree = new Tree();
         tree = new Tree();
-
+        
         Node *node1 = new Node();
         node1->index = 1;
         node1->data = 5;
