@@ -37,4 +37,5 @@ int calculateTreeHeight(cNode* root);
 
 cNode* copyBinaryTree(cNode* root);
 
+void freeBinaryTree(cNode *root);
 #endif
