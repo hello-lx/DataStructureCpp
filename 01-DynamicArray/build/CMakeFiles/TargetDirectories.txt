@@ -1,4 +1,0 @@
-/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/build/CMakeFiles/rebuild_cache.dir
-/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/build/CMakeFiles/edit_cache.dir
-/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/build/CMakeFiles/sharedLib.dir
-/home/yuan/XSpace/Study/DataStructureCpp/01-DynamicArray/build/CMakeFiles/m.dir

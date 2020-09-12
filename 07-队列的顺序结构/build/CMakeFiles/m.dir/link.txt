@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/m.dir/main.cpp.o  -o m -Wl,-rpath,/home/yuan/XSpace/Study/DataStructureCpp/07-队列的顺序结构/build libsharedLib.so 
