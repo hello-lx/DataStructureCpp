@@ -10,12 +10,11 @@ using namespace std;
  *      二叉树递归遍历
  */
 
-// 双亲节点
-struct pNode
+typedef struct STACK
 {
-    int data;
-    pNode *parent;
-};
+    CNode *header;
+    int size=0;
+} Stack;
 
 // 孩子节点
 typedef struct CHILDNODE
@@ -23,18 +22,20 @@ typedef struct CHILDNODE
     char name;
     struct CHILDNODE* lChild;
     struct CHILDNODE* rChild;
-} cNode;
+} CNode;
+
+typedef struct  LINKNODE
+{
+    struct LINKNODE* next;
+} LinkNode;
+
+typedef struct BINTREESTACKNODE
+{
+    LinkNode * node;
+    BinTreeStackNode* root;
+    int flag;
+} BinTreeStackNode;
 
 void binaryTree();
-
-void preOrderRecursion(cNode* root);
-
-void midOrderRecursion(cNode* root);
-
-void postOrderRecursion(cNode* root);
-
-int calculateTreeHeight(cNode* root);
-
-cNode* copyBinaryTree(cNode* root);
 
 #endif
