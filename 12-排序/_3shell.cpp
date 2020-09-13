@@ -1,4 +1,4 @@
-#include "DynamicArray.h"
+#include "_3shell.h"
 
 
 Dynary_Array* addArr(Dynary_Array* arr, int value){
@@ -19,4 +19,8 @@ void printArr(Dynary_Array* arr){
 
 int findArr(const Dynary_Array* arr, int val){
 
+}
+
+void testShellSort(){
+    printf("3. 插入排序\n");
 }

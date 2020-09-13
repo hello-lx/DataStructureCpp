@@ -1,5 +1,14 @@
-#ifndef DYNAMIC_ARRAY_H
-#define DYNAMIC_ARRAY_H
+#ifndef _5MERGE_H
+#define _5MERGE_H
+
+#include <iostream>
+using namespace std;
+
+/**
+ *      归并排序
+ * 
+ *      方法描述。。。。
+ */
 
 typedef struct DYNARY_ARRAY
 {
@@ -19,6 +28,6 @@ void printArr(Dynary_Array* arr);
 
 int findArr(const Dynary_Array* arr, int val);
 
-
+void testMergeSort();
 
 #endif
