@@ -5,6 +5,9 @@
 #include <string>
 using namespace std;
 
+#define MY_TRUE 1
+#define MY_FALSE 0
+
 /** 定义各种树的数据结构
  * 树存储结构：
         * 双亲表示法       寻找双亲节点效率高，寻找孩子节点效率低
@@ -29,44 +32,77 @@ using namespace std;
         * 链式存储
 */
 
-class Node
-{
+// ------------------------------------------------- Tree1 --------------------------------------------------------------
+// 1. 孩子链式二叉树
+typedef struct LINKCHILDNODE{  // 二叉树孩子链式节点
+        char name;
+        int id;
+        struct LINKCHILDNODE *lChild;
+        struct LINKCHILDNODE *rChild;
+} LCNode;
+
+typedef struct STACKNODETREE1{
+        STACKNODETREE1* next;
+        LCNode* root;
+        int flag;
+} StackNodeTree1;
+
+class StackTree1{
 public:
-        Node();
-        Node *SearchNode(int nodeIndex);
-        void DeleteNode();
-        void PreorderTraversal();
-        void InorderTraversal();
-        void PostorderTraversal();
-
-        int index;
-        int data;
-
-        Node* pLChild;
-        Node* pRChild;
-        Node* pParent;
-};
-
-class Tree
-{
-public:
-
-        Tree();//创建树
-        ~Tree();//销毁树
-        Node *SearchNode(int nodeIndex);//搜索结点
-        bool AddNode(int nodeIndex, int direction, Node* pNode);//添加结点
-        void showTree(Node* node);
-        bool DeleteNode(int nodeIndex, Node* pNode);//删除结点
-        Node* getRootNode();
-
-        void PreorderTraversal();//前序遍历
-        void InorderTraversal();//中序遍历
-        void PostorderTraversal();//后序遍历
+        StackTree1();
+        ~StackTree1();
+        
+        void push(StackNodeTree1* node);
+        void pop();
+        StackNodeTree1* top();
+        int size();
+        void print();
+        void clear();
+        bool isEmpty();
 
 private:
-        Node * m_pRoot;
+        int len=0;
+        StackNodeTree1 *header=nullptr;
 };
 
+class Tree1
+{
+public:
+        Tree1();//创建树
+        ~Tree1();//销毁树
+        LCNode* searchNode(LCNode* node, int nodeId);//搜索结点
+        void testSearchNode();//搜索结点
+        bool addNode(int nodeId, int direction, LCNode* newNode); // 添加后，仍然保持二叉树的形状
+        void showTree(LCNode* node);     
+        bool deleteNode(LCNode* root, int nodeId); // 删除后，仍然保持二叉树的形状
+        LCNode* leafNode(LCNode* root, int nodeId);
 
+        LCNode* getRootNode();
+
+        void preOrderRecursion(LCNode *node);//前序递归遍历
+        void midOrderRecursion(LCNode *node);//中序递归遍历
+        void postOrderRecursion(LCNode *node);//后序递归遍历
+        
+        StackNodeTree1* createStackNode(LCNode* node, int flag);
+        void preOrderNonRecursion(LCNode *node);//前序非递归遍历
+        void midOrderNonRecursion(LCNode *node);//中序非递归遍历
+        void postOrderNonRecursion(LCNode *node);//后序非递归遍历
+
+        void testTraversal(LCNode* node);
+
+        LCNode* getRoot();
+private:
+        LCNode* root;
+        string NLR, LNR, LRN;
+};
+
+// ------------------------------------------------- Tree2 --------------------------------------------------------------
+// 2. 双亲链接二叉树
+
+// ------------------------------------------------- Tree3 --------------------------------------------------------------
+// 3. 孩子顺序二叉树
+
+// ------------------------------------------------- Tree4 --------------------------------------------------------------
+// 4. 双亲顺序二叉树
 
 #endif
