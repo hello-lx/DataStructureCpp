@@ -7,7 +7,7 @@ LinkStack* initLinkStack(){
     LinkStack* stack = (LinkStack*)malloc(sizeof(LinkStack));
     stack->size = 0;
     stack->header = NULL;
-    stack->header->next = NULL;
+    // stack->header->next = NULL;
     return stack;
 }
 
@@ -25,7 +25,7 @@ int sizeLinkStack(LinkStack* stack){
 void pushLinkStack(LinkStack* stack, BinTreeStackNode* stackNode){
     if(stack == NULL && stackNode == NULL)
         return;
-    stackNode->next = stack->header->next;
+    stackNode->next = stack->header;
     stack->header = stackNode;
     stack->size += 1;
 }
@@ -42,7 +42,7 @@ void popLinkStack(LinkStack* stack){
 }
 
 // ###########################################################################################
-void nonRecursion(CNode* root){
+void preOrderNonRecursion(CNode* root){
     // 创建栈
     LinkStack* stack = initLinkStack();
     // 把根节点扔到栈里面
@@ -56,14 +56,69 @@ void nonRecursion(CNode* root){
         if(node->root == NULL)
             continue;
 
+        // printf("MY_TRUE: %d,   MY_FALSE: %d", MY_TRUE, MY_FALSE);
         if(node->flag == MY_TRUE){
-            printf("%c ", node->root->name);
+            printf("%c", node->root->name);
         }
         else{
             pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(node->root->rChild, MY_FALSE));
             pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(node->root->lChild, MY_FALSE));
-            node->flag == MY_TRUE;
+            node->flag = MY_TRUE;
             pushLinkStack(stack, node);
+        }
+    }
+}
+
+void midOrderNonRecursion(CNode* root){
+    // 创建栈
+    LinkStack* stack = initLinkStack();
+    // 把根节点扔到栈里面
+    pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(root, MY_FALSE));
+    
+    while (sizeLinkStack(stack) > 0)
+    {
+        BinTreeStackNode* node = (BinTreeStackNode*)topLinkStack(stack);
+        popLinkStack(stack);
+
+        if(node->root == NULL)
+            continue;
+
+        // printf("MY_TRUE: %d,   MY_FALSE: %d", MY_TRUE, MY_FALSE);
+        if(node->flag == MY_TRUE){
+            printf("%c", node->root->name);
+        }
+        else{
+            pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(node->root->rChild, MY_FALSE));
+            node->flag = MY_TRUE;
+            pushLinkStack(stack, node);
+            pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(node->root->lChild, MY_FALSE));
+        }
+    }
+}
+
+void postOrderNonRecursion(CNode* root){
+    // 创建栈
+    LinkStack* stack = initLinkStack();
+    // 把根节点扔到栈里面
+    pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(root, MY_FALSE));
+    
+    while (sizeLinkStack(stack) > 0)
+    {
+        BinTreeStackNode* node = (BinTreeStackNode*)topLinkStack(stack);
+        popLinkStack(stack);
+
+        if(node->root == NULL)
+            continue;
+
+        // printf("MY_TRUE: %d,   MY_FALSE: %d", MY_TRUE, MY_FALSE);
+        if(node->flag == MY_TRUE){
+            printf("%c", node->root->name);
+        }
+        else{
+            node->flag = MY_TRUE;
+            pushLinkStack(stack, node);
+            pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(node->root->rChild, MY_FALSE));
+            pushLinkStack(stack, (BinTreeStackNode*)createBiTreeStackNode(node->root->lChild, MY_FALSE));
         }
     }
 }
@@ -100,5 +155,67 @@ void binaryTree2(){
     nF.rChild = &nG;
     nG.lChild = &nH;
 
-    nonRecursion(&nA);    
+    printf("先序遍历：\n");
+    printf("ABCDEFGH\n");
+    preOrderNonRecursion(&nA);
+    printf("\n\n");
+
+    printf("中序遍历：\n");
+    printf("BDCEAFHG\n");
+    midOrderNonRecursion(&nA);
+    printf("\n\n");
+
+    printf("后序遍历：\n");
+    printf("DECBHGFA\n");
+    postOrderNonRecursion(&nA);
+    printf("\n\n");
+}
+
+
+/**
+ * 井号创建二叉树
+ * 例如： ABC###D##
+ *              A
+ *            /   \
+ *           B     D
+ *          / \   / \ 
+ *         C   # #   #
+ *        / \
+ *       #   #
+ */
+CNode* createBiTree(){
+    fflush(stdin);
+    char ch;
+    scanf("%c", &ch);
+    CNode* node;
+    CNode *lChild, *rChild;
+
+    if(ch == '#'){
+        node = NULL;
+    }
+    else{
+        lChild = createBiTree();
+        rChild = createBiTree();
+        node->name = ch;
+        node->lChild = lChild;
+        node->rChild = rChild;
+    }
+
+    return node;
+}
+
+void recursion(CNode* root){
+    if(root == NULL)
+        return;
+    
+    printf("%c", root->name);
+    recursion(root->lChild);
+    recursion(root->rChild);
+}
+
+void testCreateBiTree(){
+    CNode* root = createBiTree();
+    printf("\n\n");
+    recursion(root);
+    printf("\n\n");
 }

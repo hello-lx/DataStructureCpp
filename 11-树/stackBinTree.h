@@ -41,8 +41,28 @@ LinkStack* initLinkStack();
 
 BinTreeStackNode* createBiTreeStackNode(CNode* node, int flag);
 
-void nonRecursion(CNode* root);
+void preOrderNonRecursion(CNode* root);
+
+void midOrderNonRecursion(CNode* root);
+
+void postOrderNonRecursion(CNode* root);
 
 void binaryTree2();
 
+/**
+ * 井号创建二叉树
+ * 例如： ABC###D##
+ *              A
+ *            /   \
+ *           B     D
+ *          / \   / \ 
+ *         C   # #   #
+ *        / \
+ *       #   #
+ */
+CNode* createBiTree();
+
+void recursion(CNode* root);
+
+void testCreateBiTree();
 #endif
