@@ -5,7 +5,11 @@ SET(CMAKE_BUILD_TYPE "Debug")
 
 add_library(sharedLib SHARED
             _1bubble.cpp
-            )
+            _2insert.cpp
+            _3shell.cpp
+            _4quick.cpp
+            _5merge.cpp
+            _6heap.cpp)
 
 add_executable(m main.cpp)
 target_link_libraries(m sharedLib)
