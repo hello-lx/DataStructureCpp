@@ -4,7 +4,8 @@ project (01)
 SET(CMAKE_BUILD_TYPE "Debug") 
 
 add_library(sharedLib SHARED
-            DynamicArray.cpp)
+            # DynamicArray.cpp
+            stackBinTree.cpp)
 
 add_executable(m main.cpp)
 target_link_libraries(m sharedLib)

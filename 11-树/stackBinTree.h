@@ -5,16 +5,12 @@
 #include <stdlib.h>
 using namespace std;
 
+#define MY_TRUE 1
+#define MY_FALSE 0
 
 /**
- *      二叉树递归遍历
+ *      二叉树非递归遍历
  */
-
-typedef struct STACK
-{
-    CNode *header;
-    int size=0;
-} Stack;
 
 // 孩子节点
 typedef struct CHILDNODE
@@ -24,18 +20,29 @@ typedef struct CHILDNODE
     struct CHILDNODE* rChild;
 } CNode;
 
-typedef struct  LINKNODE
-{
-    struct LINKNODE* next;
-} LinkNode;
-
 typedef struct BINTREESTACKNODE
 {
-    LinkNode * node;
-    BinTreeStackNode* root;
+    struct BINTREESTACKNODE* next;
+    CNode* root;
     int flag;
 } BinTreeStackNode;
 
-void binaryTree();
+typedef struct LINKSTACK
+{
+    BinTreeStackNode* header;
+    int size=0;
+} LinkStack;
+
+int sizeLinkStack(LinkStack* stack);
+
+// --------------------------- 分割线 --------------------------- 
+
+LinkStack* initLinkStack();
+
+BinTreeStackNode* createBiTreeStackNode(CNode* node, int flag);
+
+void nonRecursion(CNode* root);
+
+void binaryTree2();
 
 #endif
