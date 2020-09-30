@@ -41,11 +41,15 @@ typedef struct LINKCHILDNODE{  // 二叉树孩子链式节点
         struct LINKCHILDNODE *rChild;
 } LCNode;
 
+
+LCNode* createLCNode(char name, int id, LCNode* lChild, LCNode* rChild);
+
 typedef struct STACKNODETREE1{
         STACKNODETREE1* next;
         LCNode* root;
         int flag;
 } StackNodeTree1;
+
 
 class StackTree1{
 public:
@@ -64,6 +68,7 @@ private:
         int len=0;
         StackNodeTree1 *header=nullptr;
 };
+
 
 class Tree1
 {
@@ -91,6 +96,7 @@ public:
         void testTraversal(LCNode* node);
 
         LCNode* getRoot();
+
 private:
         LCNode* root;
         string NLR, LNR, LRN;

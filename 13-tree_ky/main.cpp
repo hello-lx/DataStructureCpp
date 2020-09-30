@@ -82,8 +82,8 @@ void testBase(){
 
 void testQ01(){
     Tree1* tree = new Tree1();
-    // tree->testTraversal(tree->getRoot());
-    tree->testSearchNode();
+    tree->testTraversal(tree->getRoot());
+    // tree->testSearchNode();
 }
 
 

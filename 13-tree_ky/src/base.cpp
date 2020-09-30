@@ -207,6 +207,17 @@ StackNodeTree1* Tree1::createStackNode(LCNode* node, int flag){
 }
 
 
+LCNode* createLCNode(char name, int id, LCNode* lChild, LCNode* rChild){
+        LCNode* n = new LCNode;
+        n->name = name;
+        n->id = id;
+        n->lChild = lChild;
+        n->rChild = rChild;
+        
+        return n;
+}
+
+
 Tree1::Tree1(){
         /**
          *                     A
@@ -221,22 +232,37 @@ Tree1::Tree1(){
          * 后序遍历(LRN)： DEBFGCA
          */
         // 完全二叉树
-        LCNode nA = {'A', 1, NULL, NULL};
-        LCNode nB = {'B', 2, NULL, NULL};
-        LCNode nC = {'C', 3, NULL, NULL};
-        LCNode nD = {'D', 4, NULL, NULL};
-        LCNode nE = {'E', 5, NULL, NULL};
-        LCNode nF = {'F', 6, NULL, NULL};
-        LCNode nG = {'G', 7, NULL, NULL};
+        // LCNode nA = {'A', 1, NULL, NULL};
+        // LCNode nB = {'B', 2, NULL, NULL};
+        // LCNode nC = {'C', 3, NULL, NULL};
+        // LCNode nD = {'D', 4, NULL, NULL};
+        // LCNode nE = {'E', 5, NULL, NULL};
+        // LCNode nF = {'F', 6, NULL, NULL};
+        // LCNode nG = {'G', 7, NULL, NULL};
+
+        // nA.lChild = &nB;
+        // nA.rChild = &nC;
+        // nB.lChild = &nD;
+        // nB.rChild = &nE;
+        // nC.lChild = &nF;
+        // nC.rChild = &nG;
+        // root = &nA;
+
+        LCNode* nA = createLCNode('A', 1, NULL, NULL);
+        LCNode* nB = createLCNode('B', 2, NULL, NULL);
+        LCNode* nC = createLCNode('C', 3, NULL, NULL);
+        LCNode* nD = createLCNode('D', 4, NULL, NULL);
+        LCNode* nE = createLCNode('E', 5, NULL, NULL);
+        LCNode* nF = createLCNode('F', 6, NULL, NULL);
+        LCNode* nG = createLCNode('G', 7, NULL, NULL);
+        nA->lChild = nB;
+        nA->rChild = nC;
+        nB->lChild = nD;
+        nB->rChild = nE;
+        nC->lChild = nF;
+        nC->rChild = nG;
         
-        nA.lChild = &nB;
-        nA.rChild = &nC;
-        nB.lChild = &nD;
-        nB.rChild = &nE;
-        nC.lChild = &nF;
-        nC.rChild = &nG;
-        
-        root = &nA;
+        root = nA;
         NLR = "ABDECFG";
         LNR = "DBEAFCG";
         LRN = "DEBFGCA";
@@ -276,7 +302,7 @@ Tree1::Tree1(){
 }
 
 Tree1::~Tree1(){
-        // deleteNode(this->root);
+        deleteNode(this->root);
 }
 
 LCNode* Tree1::getRoot(){
@@ -383,24 +409,26 @@ void Tree1::postOrderNonRecursion(LCNode *node){
         }        
 }
 
-// bug:  为什么传入进来的节点地址会为空呢 ???
 void Tree1::testTraversal(LCNode* node){
 
         printf("前序遍历：\n");
         cout << NLR << endl;
         preOrderRecursion(node);
+        cout << endl;
         preOrderNonRecursion(node);
         printf("\n\n");
 
         printf("中序遍历：\n");
         cout << LNR << endl;
         midOrderRecursion(node);
+        cout << endl;
         midOrderNonRecursion(node);
         printf("\n\n");
 
         printf("后序遍历：\n");
         cout << LRN << endl;
         postOrderRecursion(node);
+        cout << endl;
         postOrderNonRecursion(node);
         printf("\n\n");
 }
@@ -469,6 +497,8 @@ LCNode* Tree1::leafNode(LCNode* root, int nodeId){
 }
 
 bool Tree1::deleteNode(LCNode* root, int nodeId){
+        // Todo
+
         if(searchNode(root, nodeId) == NULL)
                 return false;
 
@@ -480,6 +510,7 @@ bool Tree1::deleteNode(LCNode* root, int nodeId){
         return true;
 }
 
+
 void Tree1::showTree(LCNode* node){
-        
+                
 }
