@@ -302,7 +302,8 @@ Tree1::Tree1(){
 }
 
 Tree1::~Tree1(){
-        deleteNode(this->root);
+        // int nodeId = 4;
+        // deleteNode(this->root, nodeId);
 }
 
 LCNode* Tree1::getRoot(){
@@ -505,7 +506,7 @@ bool Tree1::deleteNode(LCNode* root, int nodeId){
         if(leafNode(root, nodeId) != NULL){  // 叶子节点
                 root = NULL;
         }else{
-
+                deleteNode(root, nodeId);
         }
         return true;
 }

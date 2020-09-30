@@ -12,12 +12,11 @@ class TreeApp1
 {
 public:
     TreeApp1();
-    TreeApp1(int n): N(n){}
-    ~TreeApp1(){};
+    ~TreeApp1();
 
     int findRecursion(int x);
     int findNonRecursion(int x);
-    void unionTree();
+    void unionTree(int, int);
     void test();
 
 private:

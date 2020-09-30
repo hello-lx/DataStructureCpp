@@ -2,7 +2,7 @@
 #include "Q02.h"
 using namespace std;
 
-void TreeApp1::TreeApp1()
+TreeApp1::TreeApp1()
 {
     for (int i=0; i<N; i++){
         farther[i] = i;
@@ -10,6 +10,10 @@ void TreeApp1::TreeApp1()
     }
 }
 
+TreeApp1::~TreeApp1()
+{
+
+}
 
 int TreeApp1::findRecursion(int x){
     if (x > N && x < 0)
@@ -31,7 +35,7 @@ int TreeApp1::findNonRecursion(int x)
     
     while(x != farther[x])
     {
-        x = farther[x]
+        x = farther[x];
     }
 
     return x;
