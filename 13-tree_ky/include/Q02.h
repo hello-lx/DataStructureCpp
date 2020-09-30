@@ -6,18 +6,18 @@
  * 树应用一：并查集（双亲表示法）
 */
 
-#define N 1001
+#define N 5
 
-class TreeApp1
+class TreeApp2
 {
 public:
-    TreeApp1();
-    ~TreeApp1();
+    TreeApp2();
+    ~TreeApp2();
 
     int findRecursion(int x);
     int findNonRecursion(int x);
     void unionTree(int, int);
-    void test();
+    void print();
 
 private:
     int farther[N];

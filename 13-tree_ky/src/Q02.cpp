@@ -2,7 +2,7 @@
 #include "Q02.h"
 using namespace std;
 
-TreeApp1::TreeApp1()
+TreeApp2::TreeApp2()
 {
     for (int i=0; i<N; i++){
         farther[i] = i;
@@ -10,12 +10,12 @@ TreeApp1::TreeApp1()
     }
 }
 
-TreeApp1::~TreeApp1()
+TreeApp2::~TreeApp2()
 {
 
 }
 
-int TreeApp1::findRecursion(int x){
+int TreeApp2::findRecursion(int x){
     if (x > N && x < 0)
         return -1;
     
@@ -28,7 +28,7 @@ int TreeApp1::findRecursion(int x){
 }
 
 
-int TreeApp1::findNonRecursion(int x)
+int TreeApp2::findNonRecursion(int x)
 {
     if (x > N && x < 0)
         return -1;
@@ -42,7 +42,7 @@ int TreeApp1::findNonRecursion(int x)
 }
 
 
-void TreeApp1::unionTree(int x, int y)
+void TreeApp2::unionTree(int x, int y)
 {
     x = findRecursion(x);
     y = findRecursion(y);
@@ -65,7 +65,17 @@ void TreeApp1::unionTree(int x, int y)
     }
 }
 
-void TreeApp1::test()
-{
-    // TODO
+
+void TreeApp2::print()
+{   
+    cout << "farther:" << endl;
+    for(int i=0; i<N; i++)
+        cout << farther[i] << " ";
+    cout << endl;
+
+    cout << "height:" << endl;
+    for(int i=0; i<N; i++)
+        cout << height[i] << " ";
+    cout << endl;
+    
 }
