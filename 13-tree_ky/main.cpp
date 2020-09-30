@@ -25,9 +25,7 @@ void testQ01()
 void testQ02()
 {
     TreeApp2 treeApp2;
-    treeApp2.print();
-    treeApp2.unionTree(1, 4);
-    treeApp2.print();
+    treeApp2.test();
 }
 
 
