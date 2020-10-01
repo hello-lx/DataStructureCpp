@@ -66,7 +66,7 @@ public:
     BSTNode* predecessor(BSTNode* node);
 
     /* 移除节点 */
-    BSTNode* remove(BSTNode* node);
+    BSTNode* BSTree::remove(BSTNode*& node, int key);
 
     /* 查找二叉树节点node的前驱节点 */
     void destroy(BSTNode* node);

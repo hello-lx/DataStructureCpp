@@ -199,14 +199,51 @@ BSTNode* BSTree::predecessor(BSTNode* node)
 }
 
 
-// 
-BSTNode* BSTree::remove(BSTNode* node)
+/**
+ * 假设要删除的结点为*p(p为指向要删除结点的指针)，其双亲结点为*f，不失一般性，可设*p是*f的左孩子。
+ * 
+ *（1）若*p结点为叶子结点，即PL和PR均为空，则只需修改f->left为空即可；
+ * 
+ *（2）若*p结点只有左子树PL或者只有右子树PR，这只需令PL和PR直接成为f的左孩子即可；
+ * 
+ *（3）若*p结点的左子树和右子树均不为空，在删去*p之后，为保持其他元素之间的相对位置不变，可以有两种做法：
+ * 
+ * 　（3.1）做法一：令*s为*p的左子树PL的最右结点，则令*p的左子树PL为*f的左子树，*p的右子树PR为*s的右子树；
+ * 
+ * 　（3.2）做法二：令*p的直接前驱（或直接后继）替代*p，然后再从二叉排序树中删除它的直接前驱（或直接后继）。
+ */
+// 此处用的是做法一    
+BSTNode* BSTree::remove(BSTNode*& node, int key)
 {
+    BSTNode* n = search(node, key);
+    printf("%d\n", n->key);
     
+    if(n != nullptr)
+    {
+        if(n->left == nullptr && n->right == nullptr)  // 叶子节点
+        {
+            if(n->parent == nullptr)
+                return n;
+            else if(n->parent->left == n)
+                n->parent->left = nullptr;
+            else
+                n->parent->right = nullptr;
+        }
+        else if(n->left == nullptr)  // 左子树为空
+        {
+            if(n->parent == nullptr)
+                // n->
+        }
+    }
 }
 
 // 
 void BSTree::destroy(BSTNode* node)
 {
+    if(node == nullptr)
+        return;
     
+    destroy(node->left);
+    destroy(node->right);
+    delete node;
 }
