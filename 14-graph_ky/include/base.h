@@ -19,14 +19,14 @@ struct AENode            // 有向边节点
 {
         int adjvex;      // 索引
         double weight;
-        AENode *AENode;
+        AENode* next;
 };
 
 
 struct ENode            // 无向边节点
 {
         double weight;
-        ENode;
+        ENode* next;
 };
 
 template<class T>
