@@ -49,7 +49,7 @@ int TreeApp2::findNonRecursion(int x)
 void TreeApp2::unionTree(int x, int y)
 {
     x = findRecursion(x);
-    y = findRecursion(y);   
+    y = findRecursion(y);
     
     farther[y] = x;  // -1 = y
 }

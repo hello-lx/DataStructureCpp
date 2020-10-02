@@ -40,7 +40,7 @@ public:
     BSTree(): root(nullptr){}
     ~BSTree();
 
-    BSTNode* getRoot() { return root; }
+    BSTNode* getRoot();
 
     /* 前序、中序、后序遍历 */
     void preOrder(BSTNode* node);
@@ -66,7 +66,7 @@ public:
     BSTNode* predecessor(BSTNode* node);
 
     /* 移除节点 */
-    BSTNode* BSTree::remove(BSTNode*& node, int key);
+    BSTNode* remove(BSTNode* node, int key);
 
     /* 查找二叉树节点node的前驱节点 */
     void destroy(BSTNode* node);

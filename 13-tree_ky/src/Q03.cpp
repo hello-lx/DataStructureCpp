@@ -21,12 +21,12 @@ BSTNode* BSTree::getRoot()
 // 前序递归
 void BSTree::preOrder(BSTNode* node)
 {
-    if(node == nullptr)
-        return;
-
-    cout << node->key << " ";
-    inOrder(node);
-    inOrder(node);
+    if(node != nullptr)
+    {
+        cout << node->key << " ";
+        preOrder(node->left);
+        preOrder(node->right);
+    }
 }
 
 
@@ -36,9 +36,9 @@ void BSTree::inOrder(BSTNode* node)
     if(node == nullptr)
         return;
 
-    inOrder(node);
+    inOrder(node->left);
     cout << node->key << " ";
-    inOrder(node);
+    inOrder(node->right);
 }
 
 
@@ -48,8 +48,8 @@ void BSTree::postOrder(BSTNode* node)
     if(node == nullptr)
         return;
 
-    postOrder(node);
-    postOrder(node);
+    postOrder(node->left);
+    postOrder(node->right);
     cout << node->key << " ";
 }
 
@@ -72,7 +72,7 @@ void BSTree::insert(BSTNode* rootNode, BSTNode* node)
     // 插入节点
     node->parent = y;
     if (y == nullptr)
-        root = node;
+        this->root = node;
     else if (y->key > node->key)
         y->left = node;
     else
@@ -119,7 +119,7 @@ BSTNode* BSTree::minimum(BSTNode* node)
     // 递归
     if(node->left == nullptr)
         return node;
-    minimum(node);
+    return minimum(node->left);
 
     // 非递归
     // BSTNode* x = node;
@@ -137,9 +137,9 @@ BSTNode* BSTree::minimum(BSTNode* node)
 BSTNode* BSTree::maximum(BSTNode* node)
 {
     // 递归
-    if(node->left == nullptr)
+    if(node->right == nullptr)
         return node;
-    maximum(node);
+    return maximum(node->right);
     
     // 非递归
     // maximum(node);
@@ -212,19 +212,18 @@ BSTNode* BSTree::predecessor(BSTNode* node)
  * 
  * 　（3.2）做法二：令*p的直接前驱（或直接后继）替代*p，然后再从二叉排序树中删除它的直接前驱（或直接后继）。
  */
-// 此处用的是做法一    
-BSTNode* BSTree::remove(BSTNode*& node, int key)
+BSTNode* BSTree::remove(BSTNode* node, int key)
 {
     BSTNode* n = search(node, key);
-    printf("%d\n", n->key);
+    // printf("%d\n", n->key);
     
     if(n != nullptr)
     {
         if(n->left == nullptr && n->right == nullptr)  // 叶子节点
         {
-            if(n->parent == nullptr)
+            if(n->parent == nullptr)  // 根节点
                 return n;
-            else if(n->parent->left == n)
+            else if(n->parent->left == n)  // 判断删除的节点是在左孩子还是右孩子
                 n->parent->left = nullptr;
             else
                 n->parent->right = nullptr;
@@ -232,9 +231,57 @@ BSTNode* BSTree::remove(BSTNode*& node, int key)
         else if(n->left == nullptr)  // 左子树为空
         {
             if(n->parent == nullptr)
-                // n->
+            {
+                this->root = n->right;
+                n->right->parent = nullptr;
+            }
+            else if(n->parent->left == n)
+                n->parent->left = n->right;
+            else
+                n->parent->right = n->right;
+        }
+        else if(n->right == nullptr)  // 右子树为空
+        {
+            if(n->parent == nullptr)
+            {
+                this->root = n->left;
+                n->left->parent = nullptr;
+            }
+            else if(n->parent->left == n)
+                n->parent->left = n->left;
+            else
+                n->parent->right = n->left;
+        }
+        else  // n 的左右子树均不为空， 采用 “做法一”
+        {
+            // 将节点n的右孩子接到节点n的前驱节点后
+            BSTNode* lnode = n->left;
+            while (lnode->right)
+                lnode = lnode->right;
+
+            lnode->right = n->right;
+            n->right->parent = lnode;
+            
+            
+            if (n->parent == nullptr)  // 直接将左孩子设置为根节点
+            {
+                this->root = n->left;
+                this->root->parent = nullptr;
+            }
+            else if(n->parent->left == n)     // 节点n在父亲的左节点上
+            {
+                n->parent->left = n->left;
+                n->left->parent = n->parent;
+            }
+            else                              // 节点n在父亲的右节点上
+            {
+                n->parent->right = n->left;
+                n->left->parent = n->parent;
+            }
         }
     }
+
+    return n;
 }
 
 // 
