@@ -16,7 +16,21 @@
  * https://www.cnblogs.com/Java-Starter/p/10192034.html
 */
 
+template<class K, class V>
+struct AVLTNode //  平衡树节点
+{
+   K key;  // 树权值
+   V value; 
+   int bf;
 
+   AVLTNode<K, V>* parent;
+   AVLTNode<K, V>* left;
+   AVLTNode<K, V>* right;
+
+   AVLTNode(const K& _key=K(), const V& _value=V()): key(_key),
+      value(_value), bf(0), left(NULL), right(NULL){}
+   
+};
 
 
 #endif
