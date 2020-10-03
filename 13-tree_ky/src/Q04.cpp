@@ -209,26 +209,59 @@ void AVLTree<K, V>::_rotateRR(AVLTNode<K, V>*&  parent)
  */
 template<class K, class V>
 void AVLTree<K, V>::_rotateLR(AVLTNode<K, V>*&  parent)
-{   // parent->X1  subL->X2  subLR->X5
-    AVLTNode<K, V>* subL = parent->left;
-    AVLTNode<K, V>* subLR = subL->right;
-    AVLTNode<K, V>* ppNode = parent->parent;
-    parent->left = subLR;
+{
+    AVLTNode<K, V>* pNode = parent;
+    AVLTNode<K, V>* subR = parent->right;
+    AVLTNode<K, V>* subRL = subR->left;
+    int bf = subLR->left;
 
-    // 1. 构建parent子树 将parent和subLR链接起来
-    if(subLR)
-        subLR->parent = parent;
-    // 2. 构建subL子树 将subL与parent链接起来
-    subL->right = parent;
-    parent->parent = subL;
-
-
+    _rotateLL(parent->right);
+    _rotateRR(parent);
+    
+    if(bf == -1)            // LR(b)
+    {
+        pNode->bf = 0;
+        subR->bf = 1;
+    }
+    else  if(bf == 1)       // LR(a)
+    {
+        pNode->bf = -1;
+        subR->bf = 0;
+    }
+    else                    // LR(c)
+    {
+        pNode->bf = 0;
+        subR->bf = 0;
+    }
 }
-
 
 template<class K, class V>
 void AVLTree<K, V>::_rotateRL(AVLTNode<K, V>*&  parent)
-{}
+{
+    AVLTNode<K, V>* pNode = parent;
+    AVLTNode<K, V>* subL = parent->left;
+    AVLTNode<K, V>* subLR = subL->right;
+    int bf = subLR->right;
+
+    _rotateRR(parent->left);
+    _rotateLL(parent);
+
+    if(bf == -1)
+    {
+        pNode->bf = 0;
+        subL->bf = 1;
+    }
+    else if(bf == 1)
+    {
+        pNode->bf = -1;
+        subL->bf = 0;
+    }
+    else
+    {
+        pNode->bf = 0;
+        subL->bf = 0;
+    }
+}
 
 
 template<class K, class V>
