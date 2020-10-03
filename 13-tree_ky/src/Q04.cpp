@@ -207,6 +207,9 @@ void AVLTree<K, V>::_rotateRR(AVLTNode<K, V>*&  parent)
  *            \                                                                \                      
  *             Y                                                                Y                          
  */
+
+ //     RR       LL
+ // LR ====> LL ====> balance
 template<class K, class V>
 void AVLTree<K, V>::_rotateLR(AVLTNode<K, V>*&  parent)
 {
