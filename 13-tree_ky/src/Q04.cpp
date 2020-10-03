@@ -198,18 +198,15 @@ void AVLTree<K, V>::_rotateRR(AVLTNode<K, V>*&  parent)
 
 
 /* 
- *        LR（bf_x2=2,  bf_x4=-1）                                    （bf_x2=2,  bf_x5=-1）
- *                 X1                             X2                          X1                           X5    
- *               /    \                         /    \                      /    \                       /    \ 
- *             X2      X3                      X4     X1                  X2      X3                   X2      X1
- *            /  \               ==>            \    /  \                /  \             ==>         /  \       \
- *          X4    X5                             Y  X5  X3             X4    X5                     X4    Y       X3
- *            \                                                                \                      
- *             Y                                                                Y                          
+ *        LR
+ *                 X1                             X1                          X5      
+ *               /    \                         /    \                      /    \    
+ *             X2      X3     对X2进行RR       X5      X3     对X1进行LL    X2      X1
+ *            /  \          ============>    /  \           ===========> /  \    /  \
+ *          X4    X5                       X2    X7                     X4  X6  X7  X3
+ *               /  \                     /  \                                        
+ *             X6    X7                 X4    X6  
  */
-
- //     RR       LL
- // LR ====> LL ====> balance
 template<class K, class V>
 void AVLTree<K, V>::_rotateLR(AVLTNode<K, V>*&  parent)
 {
