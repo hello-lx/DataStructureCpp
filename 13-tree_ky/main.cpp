@@ -107,16 +107,18 @@ void testQ03(){
 void testQ04(){}
 
 
-void testQ05(){}
+void testQ05(){
+    test05();
+}
 
 
 int main(int argc, char const *argv[])
 {
     // testQ01();
     // testQ02();
-    testQ03();
+    // testQ03();
     // testQ04();
-    // testQ05();
+    testQ05();
 
     return 0;
 }
