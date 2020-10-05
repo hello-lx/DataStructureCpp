@@ -1,9 +1,19 @@
 #ifndef BASE_H
 #define BASE_H
 
+#include <stdio.h>
+#include <vector>
+#include <malloc.h>
 #include <iostream>
+#include <map>
 #include <string>
 using namespace std;
+
+#define MAX 100
+#define isLetter(ch)  (((ch)>='a') && ((ch)<='z') || ((ch)>='A') && ((ch)<='Z'))
+#define LENGTH(arr)  (sizeof(arr)/sizeof(arr[0]))
+#define chars "ABCDEFGHIJKLMNOPQRTSUVWXYZ"
+
 
 /**
  * 定义图的数据结构
@@ -15,27 +25,48 @@ using namespace std;
  */
 
 
-template<class K, class T>   // K 为顶点类型(例如 char)， T 为存储矩阵类型(例如 int)
-struct GraphMatrix
+// 邻接矩阵
+typedef struct GraphMatrix
 {
-        K vexs[];            // 顶点名集合        例如: ['A', 'B', 'C', ...]
-        K pairs[][1];         // 传入的图节点指向， 例如： [['A', 'C'], ['A', 'B'], ...]
+        vector<char> vertices;            // 顶点名集合        例如: ['A', 'B', 'C', ...]
+        vector<vector<int>> matrix;
         bool ori;            // 是否为有向图
+} GMatrix;
 
-        int vexNum;
-        int edgeNum;
-        T matrix[][1];
-        
-        GraphMatrix(){}
-        GraphMatrix(const K &_vexs, const K &_pairs, const bool &_ori);
-};
+// 邻接表
+typedef struct GraphTableNode
+{
+        // int vId;        // 邻接点在数组中的位置下标
+        char name;      // 邻接点的数值
+        int weight;
+        struct GraphTableNode *next;
+
+        GraphTableNode(){
+                name = ' ';
+                weight=0;
+                next=nullptr;
+        }
+        GraphTableNode(char n, int w, GraphTableNode* _next): name(n), weight(w), next(_next){}
+} GTNode;
 
 
-template<class T>
+// template<class T>
 class Graph{
 public:
-        // 1
+        Graph();
+        ~Graph();
+        
+        void createGraphMatrx(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori, vector<vector<int>> &matrix);
+        void printMatrix(const vector<vector<int>> &matrix);
+        void testMatrix();
 
+        void createGraphTable(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori, vector<GTNode*> &table);
+        void printTable(const vector<GTNode*> &table);
+        void testTable();
+
+private:
+        map<char, int>* ch2int;
+        map<int, char>* int2ch;
 };
 
 
