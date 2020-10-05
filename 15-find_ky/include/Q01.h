@@ -6,7 +6,7 @@ using namespace std;
 // 顺序表
 class SeqList
 {
-    int key[];
+    int key[2];
     int tableLen;
 };
 

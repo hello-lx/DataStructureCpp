@@ -15,53 +15,55 @@ using namespace std;
  */
 
 
-struct AENode            // 有向边节点
+template<class K, class T>   // K 为顶点类型(例如 char)， T 为存储矩阵类型(例如 int)
+struct GraphMatrix
 {
-        int adjvex;      // 索引
-        double weight;
-        AENode* next;
+        K vexs[];            // 顶点名集合        例如: ['A', 'B', 'C', ...]
+        K pairs[][1];         // 传入的图节点指向， 例如： [['A', 'C'], ['A', 'B'], ...]
+        bool ori;            // 是否为有向图
+
+        int vexNum;
+        int edgeNum;
+        T matrix[][1];
+        
+        GraphMatrix(){}
+        GraphMatrix(const K &_vexs, const K &_pairs, const bool &_ori);
 };
 
-
-struct ENode            // 无向边节点
-{
-        double weight;
-        ENode* next;
-};
 
 template<class T>
-struct VNode                    // 邻接表顶点
-{
-        T vertex;               // 值
-        AENode* firstArc;       // 指向第一个中间节点
-};
-
-template <class T>
-class ALGraph
-{
-private:
-        const int MAX = 20;     // 邻接表数组大小
-        VNode<T> adjList[MAX];  // 邻接表数组
-        int vexNum;             // 节点数量
-        int arcNum;             // 连边数量
-        bool visited;           // 标记被访问
-        int edgeTo[MAX];
-        double distTo[MAX];     // 最短距离
-        queue<int> relax_edge;      //需要放松的队列
-        bool onQ[MAX];              //标记是否在队列中
-
-// 初始化/增/删(边和顶点)/改/查/可视化
+class Graph{
 public:
-        ALGraph();
-        ~ALGraph();
-        
-        void printGraph();
-        void Dijkstra(int source);
-        void DijkstraVisit(int &delmin, int source);
-        void BellmanFord(int source);  //BellmanFord算法
-        void BellmanFord_Relax(int v); //放松操作
+        // 1
+
 };
 
 
+
+// template <class T>
+// class ALGraph
+// {
+// private:
+//         const int MAX = 20;     // 邻接表数组大小
+//         VNode<T> adjList[MAX];  // 邻接表数组
+//         int vexNum;             // 节点数量
+//         int arcNum;             // 连边数量
+//         bool visited;           // 标记被访问
+//         int edgeTo[MAX];
+//         double distTo[MAX];     // 最短距离
+//         queue<int> relax_edge;      //需要放松的队列
+//         bool onQ[MAX];              //标记是否在队列中
+
+// // 初始化/增/删(边和顶点)/改/查/可视化
+// public:
+//         ALGraph();
+//         ~ALGraph();
+        
+//         void printGraph();
+//         void Dijkstra(int source);
+//         void DijkstraVisit(int &delmin, int source);
+//         void BellmanFord(int source);  //BellmanFord算法
+//         void BellmanFord_Relax(int v); //放松操作
+// };
 
 #endif
