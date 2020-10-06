@@ -3,8 +3,8 @@
 
 #include "base.h"
 /**
- * 图应用三：最短路径（带权有向图）
- * 算法： Dijkstra 和 Floyd
+ * 图应用三：拓扑排序
+ * 有向无环图：DAG
 */
 
 
