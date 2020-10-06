@@ -125,6 +125,6 @@ void Graph::testTable()
 
     vector<GTNode*> table;
     createGraphTable(arcs, weights, ori, table);
-    cout << table.size() << endl;
+    cout << table.size() << endl;   // bug: empty table
     printTable(table);
 }
