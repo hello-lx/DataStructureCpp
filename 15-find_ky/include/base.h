@@ -7,37 +7,86 @@ using namespace std;
 
 
 // 1.1 定义顺序存储栈模板
+class SeqStack
+{
+private:
+    int size;
+
+public:
+    SeqStack();
+    ~SeqStack(); 
+
+    void push(int data);
+    void pop();
+    int top();
+    int getSize();
+    bool isEmpty();
+    void print();
+    
+};
+
+void testSeqStack();
 
 
 // 1.2 定义链式存储栈模板
-template<class T>
 typedef struct StackNode
 {
-    T key;
-    struct StackNode *next;    
+    int data;
+    struct StackNode *next=nullptr;
 } SNode;
 
-template<class T>
 class LinkStack
 {
 private:
-    T key;
-    /* data */
+    SNode* header;
+    int size;
+
 public:
-    LinkStack(/* args */);
-    LinkStack(T *n);
-    ~LinkStack();    
+    LinkStack();
+    ~LinkStack(); 
+
+    void push(int data);
+    void pop();
+    int top();
+    int getSize();
+    bool isEmpty();
+    void print();
+    
+};
+
+void testLinkStack();
+
+// 2.1 定义顺序存储队列模板
+class SeqQueue{
+    
 };
 
 
+// 2.2 定义链式存储队列模板
+typedef struct QueueNode{
+    int data;
+    struct QueueNode* next=nullptr;
+} QNode;
 
+class LinkQueue{
+private:
+    int size;
+    QNode* header=nullptr;
+    
+public:
+    LinkQueue();
+    ~LinkQueue();
+    
+    void push(int data);
+    int front();
+    int back();
+    void pop();
+    int getSize();  
+    void clear();
+    void print();  
+};
 
-// 2.1 定义顺序存储栈模板
-
-
-// 2.2 定义链式存储栈模板
-
-
+void testLinkQueue();
 
 // 3.1 定义顺序存储二叉树模板
 
