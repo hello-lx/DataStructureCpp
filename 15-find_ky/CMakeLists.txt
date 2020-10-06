@@ -6,6 +6,7 @@ SET(CMAKE_BUILD_TYPE "Debug")
 include_directories("include/")
 
 add_library(sharedLib SHARED
+                                "src/base.cc"
                                 "src/Q01.cc"
                                 "src/Q02.cc"
                                 "src/Q03.cc"
