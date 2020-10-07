@@ -4,6 +4,12 @@
 #include <vector>
 using namespace std;
 
+struct Node{
+    char name;
+    int data;
+    struct Node *lChild=nullptr, *rChild=nullptr, *parent=nullptr, *next=nullptr;
+    Node(char n, int d): name(n), data(d){}
+};
 
 
 // 1.1 定义顺序存储栈模板
@@ -38,7 +44,7 @@ typedef struct StackNode
 class LinkStack
 {
 private:
-    SNode* header;
+    Node* header;
     int size;
 
 public:
@@ -71,7 +77,7 @@ typedef struct QueueNode{
 class LinkQueue{
 private:
     int size;
-    QNode* header=nullptr;
+    Node* header=nullptr;
     
 public:
     LinkQueue();
@@ -108,13 +114,13 @@ public:
     BiTree(vector<char> &names, vector<int> &data);
     ~BiTree();
 
-    BTNode* getRoot();
-    void preOrder(BTNode* node);
-    void inOrder(BTNode* node);
-    void postOrder(BTNode* node);
+    Node* getRoot();
+    void preOrder(Node* node);
+    void inOrder(Node* node);
+    void postOrder(Node* node);
 
 private:
-    BTNode* root = nullptr;
+    Node* root = nullptr;
     int len = 0;
 };
 
@@ -125,13 +131,13 @@ public:
     BBTree();
     ~BBTree();
 
-    BTNode* getRoot();
-    void preOrder(BTNode* node);
-    void inOrder(BTNode* node);
-    void postOrder(BTNode* node);
+    Node* getRoot();
+    void preOrder(Node* node);
+    void inOrder(Node* node);
+    void postOrder(Node* node);
 
 private:
-    BTNode* root = nullptr;
+    Node* root = nullptr;
     int len = 0;
 };
 

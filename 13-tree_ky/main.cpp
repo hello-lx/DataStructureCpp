@@ -113,6 +113,12 @@ void testQ05(){
     test05();
 }
 
+void testQBase(){
+    testBiTree();
+    testLinkStack();
+    testLinkQueue();
+}
+
 void testQ43(){
     hw03();
     // hw05();
@@ -137,6 +143,8 @@ int main(int argc, char const *argv[])
     // testQ03();
     // testQ04();
     // testQ05();
+
+    testQBase();
     testQ43();
     testQ45();
 

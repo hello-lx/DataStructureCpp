@@ -4,7 +4,7 @@
 // 1.2 定义链式存储栈模板
 LinkStack::LinkStack()
 {
-    header = (SNode*)malloc(sizeof(SNode));
+    header = (Node*)malloc(sizeof(Node));
     size = 0;
 }
 
@@ -21,7 +21,7 @@ void LinkStack::push(int data){
         return;
     }
 
-    SNode* nodeTop = (SNode*)malloc(sizeof(SNode));
+    Node* nodeTop = (Node*)malloc(sizeof(Node));
     nodeTop->data = data;
     nodeTop->next = header->next;
     header->next = nodeTop;
@@ -80,7 +80,7 @@ void testLinkStack(){
 // -------------------------------- 分界线 --------------------------------
 // 2.2 定义链式存储队列模板
 LinkQueue::LinkQueue(){
-    header = (QNode*)(malloc(sizeof(QNode)));
+    header = (Node*)(malloc(sizeof(Node)));
     size = 0;
 }
 
@@ -95,9 +95,9 @@ void LinkQueue::push(int data)
         return;
     }
 
-    QNode* last = header->next;
+    Node* last = header->next;
     if(size == 0){
-        last = (QNode*)(malloc(sizeof(QNode)));
+        last = (Node*)(malloc(sizeof(Node)));
         last->data = data;
         header->next = last;
         size++;
@@ -108,7 +108,7 @@ void LinkQueue::push(int data)
     while (last->next != nullptr)
         last = last->next;
 
-    QNode* cur = (QNode*)(malloc(sizeof(QNode)));
+    Node* cur = (Node*)(malloc(sizeof(Node)));
     cur->data = data;
     last->next = cur;
     size++;
@@ -124,7 +124,7 @@ int LinkQueue::front(){
 int LinkQueue::back(){
     if(size == 0)
         return -1;
-    QNode* last = header->next;
+    Node* last = header->next;
     while(last->next != nullptr)
         last = last->next;
     return last->data;
@@ -152,7 +152,7 @@ void LinkQueue::print(){
         return;
     }
     
-    QNode* cur = header->next;
+    Node* cur = header->next;
     while(cur != nullptr){
         cout << cur->data << endl;
         cur = cur->next;
@@ -181,20 +181,20 @@ BiTree::BiTree(vector<char> &names, vector<int> &data){
         return;
     }
     
-    vector<BTNode*> nodes(len);
-    root = (BTNode*)(malloc(sizeof(BTNode)));
+    vector<Node*> nodes(len);
+    root = (Node*)(malloc(sizeof(Node)));
     root->name = names[0];
     root->data = data[0];
     nodes[0] = root;
 
     for(int i=1; i<len; i++){
-        BTNode *node = new BTNode(names[i], data[i]);
+        Node *node = new Node(names[i], data[i]);
         nodes[i] = node;
     }
 
     
     for(int i=0; i<len; i++){
-        BTNode *cur = nodes[i];
+        Node *cur = nodes[i];
 
         if(i > 0)  // add parent node
             cur->parent = nodes[i/2];
@@ -207,11 +207,11 @@ BiTree::BiTree(vector<char> &names, vector<int> &data){
     }
 }
 
-BTNode* BiTree::getRoot(){
+Node* BiTree::getRoot(){
     return root;
 }
 
-void BiTree::preOrder(BTNode* node){
+void BiTree::preOrder(Node* node){
     if(node == nullptr)
         return;
     cout << node->name << ' ';
@@ -219,7 +219,7 @@ void BiTree::preOrder(BTNode* node){
     preOrder(node->rChild);
 }
 
-void BiTree::inOrder(BTNode* node){
+void BiTree::inOrder(Node* node){
     if(node == nullptr)
         return;
     inOrder(node->rChild);
@@ -227,7 +227,7 @@ void BiTree::inOrder(BTNode* node){
     inOrder(node->rChild);
 }
 
-void BiTree::postOrder(BTNode* node){
+void BiTree::postOrder(Node* node){
     if(node == nullptr)
         return;
     postOrder(node->lChild);
@@ -245,7 +245,6 @@ void testBiTree(){
 
     vector<char> names = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
     vector<int> data = {1, 2, 3, 4, 5, 6, 7};
-    cout << data.size() << ' ' << names.size() << endl;
     BiTree* tree = new BiTree(names, data);
     cout << "A B D E C F G" << endl;
     tree->preOrder(tree->getRoot());

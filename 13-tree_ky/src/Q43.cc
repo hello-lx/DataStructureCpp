@@ -3,6 +3,22 @@
 
 // 4.3-综合题03： 二叉树自下而上、从右到左的层次遍历算法
 void hw03(){
+/**                  A
+ *                 /   \
+ *                B     C
+ *               / \   / \
+ *              D   E F   G  
+ */
+
+    vector<char> names = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+    vector<int> data = {1, 2, 3, 4, 5, 6, 7};
+    BiTree* tree = new BiTree(names, data);
+    
+    SNode *sn;
+    LinkStack* stack = new LinkStack();
+    LinkQueue* q = new LinkQueue();
+    
+    // q->push();
 }
 
 
@@ -59,5 +75,4 @@ void hw19(){
 // 4.3-综合题20：设计算法：将给定的表达式树(二叉树)转化为等价的中缀表达式(通过括号反映操作符的计算次序)并输出。
 void hw20(){
 }
-
 
