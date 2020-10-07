@@ -15,7 +15,7 @@ void Push_SeqQueue(SeqQueue* queue,  void* data){
         //         int num = queue->size / MaxSize;
         //         SeqQueue* data_new = (SeqQueue*)malloc(sizeof(SeqQueue));
         // }
-
+        
         queue->data[queue->size] = data;
         queue->size++;
 }

@@ -100,6 +100,41 @@ void testLinkStack(){
 }
 
 // -------------------------------- 分界线 --------------------------------
+// 2.1 定义顺序存储队列模板
+SeqQueue::SeqQueue(){}
+
+SeqQueue::~SeqQueue(){}
+
+void SeqQueue::push(Node* node){
+    arr.push_back(node);
+    size++;
+}
+
+Node* SeqQueue::pop(){
+    if(size==0)
+        return nullptr;
+    
+    Node* node = arr[0];
+    for(int i=0; i<size-1; i++)
+        arr[i] = arr[i+1];
+    arr.pop_back();
+    size--;
+
+    return node;
+}
+
+int SeqQueue::getSize(){
+    return size;
+}
+
+bool SeqQueue::isEmpty(){
+    if(size == 0)
+        return true;
+    return false;
+}
+
+
+// -------------------------------- 分界线 --------------------------------
 // 2.2 定义链式存储队列模板
 LinkQueue::LinkQueue(){
     header = (Node*)(malloc(sizeof(Node)));
@@ -138,10 +173,10 @@ void LinkQueue::push(int data)
 
 void LinkQueue::push(Node* node)
 {
-    if(node->data <= 0){
-        cout << "插入失败， 数据必须大于0" << endl;
-        return;
-    }
+    // if(node->data <= 0){
+    //     cout << "插入失败， 数据必须大于0" << endl;
+    //     return;
+    // }
 
     Node* last = header->next;
     if(size == 0){
@@ -280,7 +315,7 @@ void BiTree::preOrder(Node* node){
 void BiTree::inOrder(Node* node){
     if(node == nullptr)
         return;
-    inOrder(node->rChild);
+    inOrder(node->lChild);
     cout << node->name << ' ';
     inOrder(node->rChild);
 }

@@ -85,12 +85,14 @@ int hw05(Node* node);
 4.3-综合题06： 二叉树中各节点值不同，已知先序结果数组A[1...N]和中序结果数组B[1...N]，重新建立二叉树链表
 
 */
+Node* createTreeByPreIn(Node A[], Node B[], int l1, int h1, int l2, int h2);
 void hw06();
 
 /*
 4.3-综合题07： 链式二叉树，判断是否为完全二叉树
-
+        判断方法：最后一个叶子节点右边是否还有叶子结点
 */
+bool isComplete(Node* root);
 void hw07();
 
 /*

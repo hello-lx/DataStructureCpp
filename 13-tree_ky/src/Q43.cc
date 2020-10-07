@@ -99,13 +99,102 @@ int hw05(Node* node){  // 递归
 }
 
 // 4.3-综合题06： 二叉树中各节点值不同，已知先序结果数组A[1...N]和中序结果数组B[1...N]，重新建立二叉树链表
-void hw06(){
+Node* createTreeByPreIn(vector<Node> &A, vector<Node> &B, int l1, int h1, int l2, int h2){
+    Node* root = (Node*)(malloc(sizeof(Node)));
+    root->data = A[l1].data;
+    root->name = A[l1].name;
+    int i;
+    for(i=l2; B[i].name != root->name; i++);        // 根节点在中序序列的划分
+
+    int lLen = i - l2;                  // 左子树的长度
+    int rLen = h2 - i;                  // 右子树的长度
+    if(lLen)                            // 递归建立左子树
+        root->lChild = createTreeByPreIn(A, B, l1+1, l1+lLen, l2, l2+lLen-1);
+    else
+        root->lChild = nullptr;
     
+    if(rLen)                            // 递归建立右子树
+        root->rChild = createTreeByPreIn(A, B, h1-rLen+1, h1, h2-rLen+1, h2);
+    else
+        root->rChild = nullptr;
+    
+    return root;
+}
+
+void hw06(){
+    vector<char> names = {'A', 'B', 'C', 'D', 'E', 'F'};
+    vector<int> data = {1, 2, 3, 4, 5, 6};
+    BiTree* tree = new BiTree(names, data);
+    // tree->preOrder(tree->getRoot());
+    // cout << endl;
+    // tree->inOrder(tree->getRoot());
+    // cout << endl;
+
+    vector<char> preNames = {'A', 'B', 'D', 'E', 'C', 'F'}, inNames = {'D', 'B', 'E', 'A', 'F', 'C'};
+    vector<Node> preNodes, inNodes;
+    for(int i=0; i<preNames.size(); i++){
+        preNodes.push_back(Node(preNames[i], 1));
+        inNodes.push_back(Node(inNames[i], 1));
+    }
+    
+    Node* root = createTreeByPreIn(preNodes, inNodes, 0, 6, 0, 6);
+    tree->preOrder(root);
+    cout << endl;
 }
 
 
 // 4.3-综合题07： 链式二叉树，判断是否为完全二叉树
+bool isComplete(Node* root){
+    if(!root)       // 空树为满二叉树
+        return true;
+    
+    // LinkQueue *queue = new LinkQueue();
+    SeqQueue *queue = new SeqQueue();
+    queue->push(root);
+    Node* n;
+
+    while (!queue->isEmpty())
+    {
+        n = queue->pop();
+        
+        if(n){  // bug: 此处需要使用顺序存储队列进行存储
+            queue->push(n->lChild);
+            queue->push(n->rChild);
+        }
+        else{       // 判断方法：最后一个叶子节点右边是否还有叶子结点
+            while (!queue->isEmpty())
+            {
+                n = queue->pop();
+                if(n)
+                    return false;
+            }
+        }
+    }
+    
+    return true;
+}
+
+
 void hw07(){
+    /** tree1   A           tree2  A
+     *         / \                / \
+     *        B   C              B   C
+     *       /                  /     \
+     *      D                  D       E
+     */
+    vector<char> names = {'A', 'B', 'C', 'D'};
+    vector<int> data = {1, 2, 3, 4};
+    BiTree* tree1 = new BiTree(names, data);
+    Node* root1 = tree1->getRoot();
+    cout << "tree1: " << isComplete(root1) << endl;
+
+    BiTree* tree2 = new BiTree(names, data);
+    Node* root2 = tree2->getRoot();
+    Node* nodeE = new Node('E', 5);
+    root2->rChild->rChild = nodeE;
+    nodeE->parent = root2->rChild;
+    cout << "tree2: " << isComplete(root2) << endl;
+
 }
 
 

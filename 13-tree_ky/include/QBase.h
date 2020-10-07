@@ -12,6 +12,14 @@ struct Node{
     Node(char n, int d): name(n), data(d){}
 };
 
+typedef struct MYNODE{
+    char name;
+    int data;
+    struct MYNode *lChild=nullptr, *rChild=nullptr, *parent=nullptr;  // tree
+    struct MYNode *next=nullptr;                                      // stack / queue
+    MYNODE(char n, int d): name(n), data(d){}
+} MyNode;
+
 
 // 1.1 定义顺序存储栈模板
 class SeqStack
@@ -62,7 +70,17 @@ void testLinkStack();
 
 // 2.1 定义顺序存储队列模板
 class SeqQueue{
-    
+public:
+    SeqQueue();
+    ~SeqQueue();
+    void push(Node* node);
+    Node* pop();
+    int getSize();
+    bool isEmpty();
+
+private:
+    int size = 0;
+    vector<Node*> arr;
 };
 
 
