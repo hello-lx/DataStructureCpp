@@ -142,24 +142,10 @@ void testQ43(){
 void testQ45(){}
 
 void myTest(){
-    vector<int> vec;
-    vec.push_back(100);
-    vec.push_back(200);
-    vec.push_back(300);
-    cout << vec.size() << endl;
-    int t = vec[0];
-    for(int i=0; i<3-1; i++)
-        vec[i] = vec[i+1];
-    // vec.resize(100);
-    // vec.erase(vec.begin());
-    vec.pop_back();
-    cout << vec.size() << endl;
-    cout << t << endl;
-
-    // Node* node = arr[0];
-    // for(int i=0; i<size-1; i++)
-    //     arr[i] = arr[i+1];
-    // arr.pop_back();
+    // struct Node* nodes[20];
+    // delete []nodes;
+    // struct Node* newNodes[40]
+    // nodes = newNodes;
 }
 
 
@@ -175,7 +161,7 @@ int main(int argc, char const *argv[])
     testQ43();
     testQ45();
 
-    // myTest();
+    myTest();
     return 0;
 }
 
