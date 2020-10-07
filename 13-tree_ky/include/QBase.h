@@ -1,5 +1,5 @@
-#ifndef BASE_H
-#define BASE_H
+#ifndef QBASE_H
+#define QBASE_H
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -92,5 +92,47 @@ void testLinkQueue();
 
 
 // 3.2 定义链式存储二叉树模板
+typedef struct BinaryTreeNode{
+    char name;
+    int data;
+    struct BinaryTreeNode* lChild=nullptr;
+    struct BinaryTreeNode* rChild=nullptr;
+    struct BinaryTreeNode* parent=nullptr;
+    BinaryTreeNode(char n, int d): name(n), data(d){}
+} BTNode;
+
+
+class BiTree{
+public:
+    BiTree();
+    BiTree(vector<char> &names, vector<int> &data);
+    ~BiTree();
+
+    BTNode* getRoot();
+    void preOrder(BTNode* node);
+    void inOrder(BTNode* node);
+    void postOrder(BTNode* node);
+
+private:
+    BTNode* root = nullptr;
+    int len = 0;
+};
+
+void testBiTree();
+
+class BBTree{  // balance binary tree
+public:
+    BBTree();
+    ~BBTree();
+
+    BTNode* getRoot();
+    void preOrder(BTNode* node);
+    void inOrder(BTNode* node);
+    void postOrder(BTNode* node);
+
+private:
+    BTNode* root = nullptr;
+    int len = 0;
+};
 
 #endif

@@ -1,4 +1,4 @@
-#include "base.h"
+#include "QBase.h"
 
 // -------------------------------- 分界线 --------------------------------
 // 1.2 定义链式存储栈模板
@@ -171,3 +171,84 @@ void testLinkQueue(){
 }
 
 // -------------------------------- 分界线 --------------------------------
+// 3.2 定义链式存储二叉树模板
+BiTree::BiTree(){}
+
+BiTree::BiTree(vector<char> &names, vector<int> &data){
+    int len = data.size();
+    if(names.size() != data.size() || len == 0){
+        cout << "Failure to create binary tree." << endl;
+        return;
+    }
+    
+    vector<BTNode*> nodes(len);
+    root = (BTNode*)(malloc(sizeof(BTNode)));
+    root->name = names[0];
+    root->data = data[0];
+    nodes[0] = root;
+
+    for(int i=1; i<len; i++){
+        BTNode *node = new BTNode(names[i], data[i]);
+        nodes[i] = node;
+    }
+
+    
+    for(int i=0; i<len; i++){
+        BTNode *cur = nodes[i];
+
+        if(i > 0)  // add parent node
+            cur->parent = nodes[i/2];
+
+        int lId = 2*i + 1, rId = 2*i + 2;
+        if(lId < len)  // add lChild node
+            cur->lChild = nodes[lId];
+        if(rId < len)  // add rChild node
+            cur->rChild = nodes[rId];
+    }
+}
+
+BTNode* BiTree::getRoot(){
+    return root;
+}
+
+void BiTree::preOrder(BTNode* node){
+    if(node == nullptr)
+        return;
+    cout << node->name << ' ';
+    preOrder(node->lChild);
+    preOrder(node->rChild);
+}
+
+void BiTree::inOrder(BTNode* node){
+    if(node == nullptr)
+        return;
+    inOrder(node->rChild);
+    cout << node->name << ' ';
+    inOrder(node->rChild);
+}
+
+void BiTree::postOrder(BTNode* node){
+    if(node == nullptr)
+        return;
+    postOrder(node->lChild);
+    postOrder(node->rChild);
+   cout << node->name << ' ';
+ }
+
+void testBiTree(){
+/**                  A
+ *                 /   \
+ *                B     C
+ *               / \   / \
+ *              D   E F   G  
+ */
+
+    vector<char> names = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+    vector<int> data = {1, 2, 3, 4, 5, 6, 7};
+    cout << data.size() << ' ' << names.size() << endl;
+    BiTree* tree = new BiTree(names, data);
+    cout << "A B D E C F G" << endl;
+    tree->preOrder(tree->getRoot());
+    cout << endl;
+    
+}
