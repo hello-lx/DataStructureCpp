@@ -7,6 +7,8 @@
 #include "Q03.h"
 #include "Q04.h"
 #include "Q05.h"
+#include "Q43.h"
+#include "Q45.h"
 
 void testBase()
 {
@@ -111,6 +113,22 @@ void testQ05(){
     test05();
 }
 
+void testQ43(){
+    hw03();
+    // hw05();
+    // hw07();
+    // hw08();
+    // hw09();
+    // hw10();
+    // hw11();
+    // hw12();
+    // hw17();
+    // hw19();
+    // hw20();    
+}
+
+void testQ45(){}
+
 
 int main(int argc, char const *argv[])
 {
@@ -118,7 +136,9 @@ int main(int argc, char const *argv[])
     // testQ02();
     // testQ03();
     // testQ04();
-    testQ05();
+    // testQ05();
+    testQ43();
+    testQ45();
 
     return 0;
 }

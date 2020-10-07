@@ -23,7 +23,7 @@ bool AVLTree<K, V>::insert(const K& key, const V& value)
         }
         else if(cur->key > key)
         {
-            parent = cur
+            parent = cur;
             cur = cur->left;
         }
         else
@@ -130,40 +130,11 @@ void AVLTree<K, V>::_rotateLL(AVLTNode<K, V>*&  parent)
 
 
 template<class K, class V>
-void AVLTree<K, V>::_rotateLR(AVLTNode<K, V>*&  parent)
-{
-    AVLTNode<K, V>* pNode = parent;
-    AVLTNode<K, V>* subR = pNode->right;
-    AVLTNode<K, V>* subLR = subR->left;
-    int bf = subLR->bf;
-
-    _rotateLL(parent->right);
-    _rotateRR(parent);
-
-    if(bf == -1)            // LR(B型)
-    {
-        pNode->bf = 0;
-        subR->bf = 1;
-    }
-    else if(bf == 1)        // LR(A型)
-    {
-        pNode->bf = -1;
-        subR->bf = 0;
-    }
-    else                    // LR(C型)
-    {
-        pNode->bf = 0;
-        subR->bf = 0;
-    }
-}
-
-
-template<class K, class V>
 void AVLTree<K, V>::_rotateRR(AVLTNode<K, V>*&  parent)
 {
    // parent->X1  subL->X2   subLR->X5
     AVLTNode<K, V>* subR = parent->right;   // 构造左子树
-    AVLTNode<K, V>* subRL = subL->left;   //subL的右子树
+    AVLTNode<K, V>* subRL = subR->left;   //subL的右子树
     AVLTNode<K, V>* ppNode = parent->parent;  // 标记为祖先节点
     parent->right = subRL;
     
@@ -190,7 +161,7 @@ void AVLTree<K, V>::_rotateRR(AVLTNode<K, V>*&  parent)
 
     // 4.重置平衡因子
     parent->bf = 0;
-    subL->bf = 0;
+    subR->bf = 0;
     
     //5.更新subL为当前父节点
     parent = subR;
@@ -213,7 +184,7 @@ void AVLTree<K, V>::_rotateLR(AVLTNode<K, V>*&  parent)
     AVLTNode<K, V>* pNode = parent;
     AVLTNode<K, V>* subR = parent->right;
     AVLTNode<K, V>* subRL = subR->left;
-    int bf = subLR->left;
+    int bf = subRL->left;
 
     _rotateLL(parent->right);
     _rotateRR(parent);
@@ -309,7 +280,7 @@ void AVLTree<K, V>::_inOrder(AVLTNode<K, V>* node)
         return;
     _inOrder(node->left);
     cout << node->key;
-    _inOrder(node->right)
+    _inOrder(node->right);
 }
 
 
@@ -320,7 +291,7 @@ void AVLTree<K, V>::_preOrder(AVLTNode<K, V>* node)
         return;
     cout << node->key;
     _preOrder(node->left);
-    _preOrder(node->right)
+    _preOrder(node->right);
 }
 
 
@@ -331,5 +302,5 @@ void AVLTree<K, V>::_postOrder(AVLTNode<K, V>* node)
         return;
     cout << node->key;
     _postOrder(node->left);
-    _postOrder(node->right)
+    _postOrder(node->right);
 }

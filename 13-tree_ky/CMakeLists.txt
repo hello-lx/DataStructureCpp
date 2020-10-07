@@ -8,12 +8,16 @@ include_directories("include/")
 
 add_library(sharedLib SHARED
                                 "src/base.cpp"
-                                "src/QBase.cpp"
                                 "src/Q01.cpp"
                                 "src/Q02.cpp"
                                 "src/Q03.cpp"
                                 "src/Q04.cpp"
-                                "src/Q05.cpp")
+                                "src/Q05.cpp"
+                                
+                                "src/QBase.cc"
+                                "src/Q43.cc"
+                                "src/Q45.cc"
+                                )
 
 add_executable(m main.cpp)
 target_link_libraries(m sharedLib)
