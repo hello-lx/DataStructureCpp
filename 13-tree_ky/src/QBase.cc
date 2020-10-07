@@ -28,6 +28,18 @@ void LinkStack::push(int data){
     size++;
 }
 
+void LinkStack::push(Node* node){
+    if(node->data <= 0)
+    {
+        cout << "入栈失败，入栈的数必须大于0" << endl;
+        return;
+    }
+
+    node->next = header->next;
+    header->next = node;
+    size++;
+}
+
 void LinkStack::pop(){
     if (size == 0)
         return;
@@ -36,12 +48,18 @@ void LinkStack::pop(){
     size--;
 }
 
-int LinkStack::top(){
-    if (size == 0)
-        return -1;
+// int LinkStack::top(){
+//     if (size == 0)
+//         return -1;
     
-    return header->next->data;    
+//     return header->next->data;    
+// }
+Node* LinkStack::top(){
+    if (size == 0)
+        return nullptr;
+    return header->next;
 }
+
 
 int LinkStack::getSize(){
     return size;
@@ -60,7 +78,7 @@ void LinkStack::print(){
     }
 
     while(size > 0){
-        cout << top() << endl;
+        cout << top()->data << endl;
         pop();
     }
 
@@ -71,8 +89,12 @@ void testLinkStack(){
     LinkStack* stack = new LinkStack();
 
     int arr[] = {33, 21, 25, 16, 8};
-    for(int i=0; i<5; i++)
-        stack->push(arr[i]);
+    for(int i=0; i<5; i++){
+        Node *node = (Node*)malloc(sizeof(Node));
+        node->data = arr[i];
+        stack->push(node);
+        // stack->push(arr[i]);
+    }
 
     stack->print();
 }
@@ -114,20 +136,42 @@ void LinkQueue::push(int data)
     size++;
 }
 
-int LinkQueue::front(){
-    if (size == 0)
-        return -1;
+void LinkQueue::push(Node* node)
+{
+    if(node->data <= 0){
+        cout << "插入失败， 数据必须大于0" << endl;
+        return;
+    }
+
+    Node* last = header->next;
+    if(size == 0){
+        header->next = node;
+        size++;
+        return;
+    }
+
     
-    return header->next->data;
+    while (last->next != nullptr)
+        last = last->next;
+
+    last->next = node;
+    size++;
 }
 
-int LinkQueue::back(){
+Node* LinkQueue::front(){
+    if (size == 0)
+        return nullptr;
+    
+    return header->next;
+}
+
+Node* LinkQueue::back(){
     if(size == 0)
-        return -1;
+        return nullptr;
     Node* last = header->next;
     while(last->next != nullptr)
         last = last->next;
-    return last->data;
+    return last;
 }
 
 void LinkQueue::pop(){
@@ -160,22 +204,34 @@ void LinkQueue::print(){
     cout << "队列打印完毕～" << endl;
 }
 
+bool LinkQueue::isEmpty(){
+    if (size > 0)
+        return false;
+    return true;
+}
+
+
 void testLinkQueue(){
     LinkQueue* q = new LinkQueue();
 
     int arr[] = {33, 21, 25, 16, 8};
-    for(int i=0; i<5; i++)
-        q->push(arr[i]);
+    for(int i=0; i<5; i++){
+        Node* node = (Node*)(malloc(sizeof(Node)));
+        node->data = arr[i];
+        q->push(node);
+        // q->push(arr[i]);
+    }
         
     q->print();    
 }
+
 
 // -------------------------------- 分界线 --------------------------------
 // 3.2 定义链式存储二叉树模板
 BiTree::BiTree(){}
 
 BiTree::BiTree(vector<char> &names, vector<int> &data){
-    int len = data.size();
+    len = data.size();
     if(names.size() != data.size() || len == 0){
         cout << "Failure to create binary tree." << endl;
         return;
@@ -210,6 +266,8 @@ BiTree::BiTree(vector<char> &names, vector<int> &data){
 Node* BiTree::getRoot(){
     return root;
 }
+
+int BiTree::getLen(){ return len; }
 
 void BiTree::preOrder(Node* node){
     if(node == nullptr)
@@ -251,3 +309,4 @@ void testBiTree(){
     cout << endl;
     
 }
+

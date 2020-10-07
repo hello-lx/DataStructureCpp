@@ -7,7 +7,8 @@ using namespace std;
 struct Node{
     char name;
     int data;
-    struct Node *lChild=nullptr, *rChild=nullptr, *parent=nullptr, *next=nullptr;
+    struct Node *lChild=nullptr, *rChild=nullptr, *parent=nullptr;  // tree
+    struct Node *next=nullptr;                                      // stack / queue
     Node(char n, int d): name(n), data(d){}
 };
 
@@ -23,8 +24,9 @@ public:
     ~SeqStack(); 
 
     void push(int data);
+    void push(Node* node);
     void pop();
-    int top();
+    Node* top();
     int getSize();
     bool isEmpty();
     void print();
@@ -35,12 +37,6 @@ void testSeqStack();
 
 
 // 1.2 定义链式存储栈模板
-typedef struct StackNode
-{
-    int data;
-    struct StackNode *next=nullptr;
-} SNode;
-
 class LinkStack
 {
 private:
@@ -52,8 +48,10 @@ public:
     ~LinkStack(); 
 
     void push(int data);
+    void push(Node* node);
     void pop();
-    int top();
+    // int top();
+    Node* top();
     int getSize();
     bool isEmpty();
     void print();
@@ -69,11 +67,6 @@ class SeqQueue{
 
 
 // 2.2 定义链式存储队列模板
-typedef struct QueueNode{
-    int data;
-    struct QueueNode* next=nullptr;
-} QNode;
-
 class LinkQueue{
 private:
     int size;
@@ -84,9 +77,13 @@ public:
     ~LinkQueue();
     
     void push(int data);
-    int front();
-    int back();
+    void push(Node* node);
+    // int front();
+    Node* front();
+    // int back();
+    Node* back();
     void pop();
+    bool isEmpty();
     int getSize();  
     void clear();
     void print();  
@@ -98,16 +95,6 @@ void testLinkQueue();
 
 
 // 3.2 定义链式存储二叉树模板
-typedef struct BinaryTreeNode{
-    char name;
-    int data;
-    struct BinaryTreeNode* lChild=nullptr;
-    struct BinaryTreeNode* rChild=nullptr;
-    struct BinaryTreeNode* parent=nullptr;
-    BinaryTreeNode(char n, int d): name(n), data(d){}
-} BTNode;
-
-
 class BiTree{
 public:
     BiTree();
@@ -115,6 +102,7 @@ public:
     ~BiTree();
 
     Node* getRoot();
+    int getLen();
     void preOrder(Node* node);
     void inOrder(Node* node);
     void postOrder(Node* node);

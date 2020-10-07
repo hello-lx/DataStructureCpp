@@ -6,6 +6,7 @@
 #include "QBase.h"
 using namespace std;
 
+BiTree* createBiTree();
 
 /*
 4.3-综合题03： 二叉树自下而上、从右到左的层次遍历算法
@@ -34,7 +35,7 @@ void InvertLevel(Tree1* bt){
     }
 }
 */
-void hw03();
+void hw03(BiTree* tree=nullptr);
 
 /*
 4.3-综合题05： 链式二叉树，用非递归求二叉树的高度？
@@ -44,8 +45,8 @@ void hw03();
 // 非递归
 int BtDepth(BiTree T){
     if(!T) return 0
-    int front=-1, rear=-1;      // front 最近一个节点出队列的位置   rear 最近一个节点入队列的位置，当前层最右节点
-    int last=0, level=0;        // last指向第一个节点的位置
+    int front=-1, rear=-1;      // front 树节点在队列中的位置    rear 最后一层的最右节点位置
+    int last=0, level=0;        // last 
     BiTree Q[MaxSize];
     Q[++rear] = T;
     BiTree p;
@@ -77,8 +78,8 @@ int BtDepth(BiTree T){
         return rdep + 1;
 }
 */
-void hw05();
-
+void hw05(BiTree* tree=nullptr);
+int hw05(Node* node);
 
 /*
 4.3-综合题06： 二叉树中各节点值不同，已知先序结果数组A[1...N]和中序结果数组B[1...N]，重新建立二叉树链表

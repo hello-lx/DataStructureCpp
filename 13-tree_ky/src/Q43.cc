@@ -1,8 +1,6 @@
 #include "Q43.h"
 
-
-// 4.3-综合题03： 二叉树自下而上、从右到左的层次遍历算法
-void hw03(){
+BiTree* createBiTree(){
 /**                  A
  *                 /   \
  *                B     C
@@ -12,23 +10,97 @@ void hw03(){
 
     vector<char> names = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
     vector<int> data = {1, 2, 3, 4, 5, 6, 7};
+    // vector<char> names = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
+    // vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     BiTree* tree = new BiTree(names, data);
+    return tree;
+}
+
+// 4.3-综合题03： 二叉树自下而上、从右到左的层次遍历算法
+void hw03(BiTree* tree){
+    if(tree == nullptr)
+        tree = createBiTree();
     
-    SNode *sn;
-    LinkStack* stack = new LinkStack();
+    Node *n;
+    LinkStack* s = new LinkStack();
     LinkQueue* q = new LinkQueue();
-    
-    // q->push();
+    if(tree->getLen() > 0){
+        q->push(tree->getRoot());
+        while (!q->isEmpty())
+        {
+            n = q->front();
+            q->pop();
+
+            s->push(n);
+            
+            if(n->lChild)
+                q->push(n->lChild);
+            if(n->rChild)
+                q->push(n->rChild);
+        }
+        
+        while (!s->isEmpty())
+        {
+            n = s->top();
+            s->pop();
+            cout << n->data << ' ';
+        }
+        cout << endl;        
+    }
 }
 
 
 // 4.3-综合题05： 链式二叉树，用非递归求二叉树的高度？
-void hw05(){
+void hw05(BiTree* tree){  // 非递归
+    if(tree == nullptr)
+        tree = createBiTree();
+    
+    int front=-1, rear=0;
+    int last=0, level=0;
+    LinkQueue *q = new LinkQueue();  // bug: LinkQueue *q; 为什么这个push不进去？
+    q->push(tree->getRoot());
+    Node *n;
+
+    if (tree->getLen() > 0)
+        while (!q->isEmpty())
+        {
+            n = q->front();
+            q->pop();
+            front++;
+
+            if(n->lChild){
+                rear++;
+                q->push(n->lChild);
+            }
+            if(n->rChild){
+                rear++;
+                q->push(n->rChild);
+            }
+            
+            if(front == last){
+                last = rear;
+                level++;
+            }
+        }
+
+    cout << "树的高度为：" << level << endl;
 }
 
+int hw05(Node* node){  // 递归
+    if(node == nullptr)
+        return 0;
+    
+    int lh = hw05(node->lChild);
+    int rh = hw05(node->rChild);
+    if (lh > rh)
+        return lh + 1;
+    else
+        return rh + 1;
+}
 
 // 4.3-综合题06： 二叉树中各节点值不同，已知先序结果数组A[1...N]和中序结果数组B[1...N]，重新建立二叉树链表
 void hw06(){
+    
 }
 
 

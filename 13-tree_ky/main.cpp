@@ -120,17 +120,21 @@ void testQBase(){
 }
 
 void testQ43(){
-    hw03();
+    // hw03();
+
     // hw05();
-    // hw07();
-    // hw08();
-    // hw09();
-    // hw10();
-    // hw11();
-    // hw12();
-    // hw17();
-    // hw19();
-    // hw20();    
+    // BiTree* tree = createBiTree();
+    // cout << "树的高度：" << hw05(tree->getRoot()) << endl; 
+
+    hw07();
+    hw08();
+    hw09();
+    hw10();
+    hw11();
+    hw12();
+    hw17();
+    hw19();
+    hw20();    
 }
 
 void testQ45(){}
@@ -144,7 +148,7 @@ int main(int argc, char const *argv[])
     // testQ04();
     // testQ05();
 
-    testQBase();
+    // testQBase();
     testQ43();
     testQ45();
 
