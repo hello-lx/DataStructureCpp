@@ -25,7 +25,7 @@ using namespace std;
  */
 
 
-// 邻接矩阵
+// --------------------------------------- 邻接矩阵 --------------------------------------- 
 typedef struct GraphMatrix
 {
         vector<char> vertices;            // 顶点名集合        例如: ['A', 'B', 'C', ...]
@@ -50,7 +50,7 @@ typedef struct GraphTableNode
 } GTNode;
 
 
-// template<class T>
+//  --------------------------------------- 邻接表  --------------------------------------- 
 class Graph{
 public:
         Graph();
@@ -71,30 +71,5 @@ private:
 
 
 
-// template <class T>
-// class ALGraph
-// {
-// private:
-//         const int MAX = 20;     // 邻接表数组大小
-//         VNode<T> adjList[MAX];  // 邻接表数组
-//         int vexNum;             // 节点数量
-//         int arcNum;             // 连边数量
-//         bool visited;           // 标记被访问
-//         int edgeTo[MAX];
-//         double distTo[MAX];     // 最短距离
-//         queue<int> relax_edge;      //需要放松的队列
-//         bool onQ[MAX];              //标记是否在队列中
-
-// // 初始化/增/删(边和顶点)/改/查/可视化
-// public:
-//         ALGraph();
-//         ~ALGraph();
-        
-//         void printGraph();
-//         void Dijkstra(int source);
-//         void DijkstraVisit(int &delmin, int source);
-//         void BellmanFord(int source);  //BellmanFord算法
-//         void BellmanFord_Relax(int v); //放松操作
-// };
 
 #endif
