@@ -199,45 +199,268 @@ void hw07(){
 
 
 // 4.3-综合题08： 链式二叉树，计算所有双分支节点个数
-int computeNum(){
+int computeNum(Node* root){
+    if(root == NULL)
+        return 0;
     
+    if(root->lChild != nullptr && root->rChild != nullptr)
+        return computeNum(root->lChild) + computeNum(root->rChild) + 1;
+    else
+        return computeNum(root->lChild) + computeNum(root->rChild);
 }
 
 void hw08(){
+    BiTree* tree = createBiTree();
+    cout << "有双亲节点的个数：" << computeNum(tree->getRoot()) << endl;;
 }
 
 
 // 4.3-综合题09： 链式二叉树，把所有结点的左右子树进行交换
+void swap(Node* root){
+    if(root){
+        swap(root->lChild);
+        swap(root->rChild);
+        Node* temp = root->lChild;
+        root->lChild = root->rChild;
+        root->rChild = temp;
+    }
+}
+
 void hw09(){
+    BiTree* tree = createBiTree();
+    tree->preOrder(tree->getRoot());
+    cout << endl;
+    swap(tree->getRoot());
+    tree->preOrder(tree->getRoot());
+    cout << endl;
 }
 
 
 // 4.3-综合题10： 链式二叉树，求先序遍历序列中第k(1 <= k <= 树结点个数)个节点的值
+int i=1;  
+char PreNode(Node* root, int k){
+    if(root == NULL)   // 空节点
+        return '#';
+    if(i==k)
+        return root->name;
+    i++;
+    char ch = PreNode(root->lChild, k);
+    if(ch != '#')
+        return ch;
+    ch = PreNode(root->lChild, k);
+    return ch;
+}
+
 void hw10(){
+    BiTree* tree = createBiTree();
+    char ch = PreNode(tree->getRoot(), 3);
+    // A B D E C F G
+    cout << "3: " << ch << endl;
 }
 
 
 // 4.3-综合题11： 链式二叉树，对于每个每个元素值为x的结点，删去已它为根的子树，并释放相应的空间
+void deleteXNode(Node* root){
+    if(root){
+        deleteXNode(root->lChild);
+        deleteXNode(root->rChild);
+        free(root);
+    }
+}
+
+void deleteXTree(Node* root, char delName){
+    if(root){
+        if(root->name == delName)
+        {
+            deleteXNode(root);
+            exit(0);
+            // return;  // debug
+        }
+        LinkQueue* Q = new LinkQueue();
+        Q->push(root);
+        while (!Q->isEmpty())
+        {
+            Node* node = Q->front();
+            Q->pop();
+            if(node->lChild){
+                if(node->lChild->name == delName){
+                    deleteXTree(node->lChild, delName);
+                    node->lChild = nullptr;
+                }
+                else
+                    Q->push(node->lChild);
+            }
+            if(node->rChild){
+                if(node->rChild->name == delName){
+                    deleteXTree(node->rChild, delName);
+                    node->rChild = nullptr;
+                }
+                else
+                    Q->push(node->rChild);
+            }
+        }
+    }
+}
+
 void hw11(){
+/**                  A
+ *                 /   \
+ *                B     C
+ *               / \   / \
+ *              D   E F   G  
+ */
+    BiTree* tree = createBiTree();
+    tree->preOrder(tree->getRoot());
+    cout << endl;
+    deleteXTree(tree->getRoot(), 'C');
+    tree->preOrder(tree->getRoot());
+    cout << endl;
 }
 
 
 // 4.3-综合题12： 二叉树，查找值为x的结点，并打印值为x的结点的所有祖先。假设值为x的结点不多于一个
+bool Ancestor(Node* root, char name, LinkStack* stack){
+    if(!root)
+        return false;
+    if(root->name == name)
+        return true;
+    if(Ancestor(root->lChild, name, stack) || Ancestor(root->rChild, name, stack))
+    {
+        stack->push(root);
+        return true;
+    }
+    return false;
+}
+
+void printAncestor(Node* root, char name){
+    LinkStack* stack = new LinkStack();
+    if(Ancestor(root, name, stack))
+    {
+        cout << "找到节点名为" << name << "的祖先结点" << endl;
+        while (!stack->isEmpty())
+        {
+            Node* node = stack->top();
+            stack->pop();
+            cout << node->name << ' ';
+        }
+        cout << endl;
+    }
+}
+
 void hw12(){
+    BiTree* tree = createBiTree();
+    printAncestor(tree->getRoot(), 'G');
 }
 
 
 // 4.3-综合题17： 判断两颗二叉树是否相似
+// a)  f(T1, T2)=1; 若 T1==T2==NULL
+// b)  f(T1, T2)=0; 若 T1和T2之中一个为NULL，另一个不为NULL
+// c)  f(T1, T2)=1; 若 T1和T2均不为NULL
+bool similar(Node* root1, Node* root2){
+    int leftS, rightS;
+    if(root1==nullptr && root2==nullptr)
+        return true; // 1
+    else if(root1==nullptr || root2==nullptr)
+        return false; // 0
+    else{
+        leftS = similar(root1->lChild, root2->lChild);
+        rightS = similar(root1->rChild, root2->rChild);
+        return leftS && rightS;
+    }
+}
+
 void hw17(){
+/**     tree1:       A                tree2:      A
+ *                 /   \                        /   \
+ *                B     C                      B     C
+ *               / \   / \                    / \   / 
+ *              D   E F   G                  D   E G   
+ */
+    Node* root1 = createBiTree()->getRoot();
+    
+    BiTree* tree2 = createBiTree();
+    // tree2->preOrder(tree2->getRoot());
+    // cout << endl;
+    swap(tree2->getRoot()->rChild);
+    // tree2->preOrder(tree2->getRoot());
+    Node* root2 = tree2->getRoot();
+    // cout << endl;
+
+    root2->rChild->rChild = nullptr;
+    if(similar(root1->rChild, root2->rChild))
+        cout << "相似" << endl;
+    else
+        cout << "不相似" << endl;
 }
 
 
-// 4.3-综合题19： 设计WPL算法： 二叉树带权路径长度（WPL）是二叉树中所有带权路径长度之和.  二叉树结点属性： left weight right  (weight > 0)
+// 4.3-综合题19： 设计WPL算法： 二叉树带权路径长度（WPL）是二叉树中叶子结点所有带权路径长度之和.  二叉树结点属性： left weight right  (weight > 0)
+int wplPreOrder(Node* root, int deep){
+    static int wpl = 0;
+    
+    if(root->lChild == nullptr && root->rChild == nullptr)
+        wpl += deep * root->data;
+    if(root->lChild)
+        wplPreOrder(root->lChild, deep+1);
+    if(root->rChild)
+        wplPreOrder(root->rChild, deep+1);
+    return wpl;
+}
+
 void hw19(){
+/**                    A(1)
+ *                 /        \
+ *                B(2)      C(3)
+ *               /    \    /    \
+ *           (4)D   (5)E F(6)    G(7)
+ */
+    BiTree* tree = createBiTree();
+    cout << wplPreOrder(tree->getRoot(), 1) << endl;
+    
 }
 
 
 // 4.3-综合题20：设计算法：将给定的表达式树(二叉树)转化为等价的中缀表达式(通过括号反映操作符的计算次序)并输出。
+// 叶子结点和根结点不需要加括号，中序遍历
+void BTreeToExp(Node* root, int deep){
+    if(root==nullptr)
+        return;
+    else if(root->lChild==nullptr && root->rChild==nullptr)
+        cout << root->name;
+    else{
+        if(deep > 1)
+            cout << '(';
+        BTreeToExp(root->lChild, deep+1);
+        cout << root->name;
+        BTreeToExp(root->rChild, deep+1);
+        if(deep > 1)
+            cout << ')';
+    }
+}
+
 void hw20(){
+/*
+例如：T1 (a+b)*(c*(-d)) 和 (a*b) + (-(c-d))
+           *                          +
+        /     \                    /      \
+       +       *                  *        -
+      / \     / \                / \        \
+     a   b   c   -              a   b        -
+                  \                         / \
+                   d                       c   d
+*/
+    vector<char> T1NodeNames = {'*', '+', '*', 'a', 'b', 'c', '-', 'd'};
+    vector<int> weights = {1, 1, 1, 1, 1, 1, 1, 1};
+    BiTree* tree = new BiTree(T1NodeNames, weights);
+    Node* root = tree->getRoot();
+
+    // 改正结点d的位置
+    Node* nodeD = root->lChild->lChild->lChild;
+    root->lChild->lChild->lChild = nullptr;
+    root->rChild->rChild->rChild = nodeD;
+
+    BTreeToExp(tree->getRoot(), 1);
+    cout << endl;
 }
 
