@@ -26,14 +26,14 @@ using namespace std;
 
 
 // --------------------------------------- 邻接矩阵 --------------------------------------- 
-typedef struct GraphMatrix
-{
-        vector<char> vertices;            // 顶点名集合        例如: ['A', 'B', 'C', ...]
-        vector<vector<int>> matrix;
-        bool ori;            // 是否为有向图
-} GMatrix;
+// typedef struct GraphMatrix
+// {
+//         vector<char> vertices;            // 顶点名集合        例如: ['A', 'B', 'C', ...]
+//         vector<vector<int>> matrix;
+//         bool ori;            // 是否为有向图
+// } GMatrix;
 
-// 邻接表
+// --------------------------------------- 邻接表 --------------------------------------- 
 typedef struct GraphTableNode
 {
         // int vId;        // 邻接点在数组中的位置下标
@@ -68,8 +68,6 @@ private:
         map<char, int>* ch2int;
         map<int, char>* int2ch;
 };
-
-
 
 
 #endif
