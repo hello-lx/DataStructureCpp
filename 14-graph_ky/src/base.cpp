@@ -13,6 +13,17 @@ Graph::Graph(){
     }
 }
 
+Graph::Graph(vector<char> &vertexs){
+    int n = LENGTH(vertexs);
+    ch2int = new map<char, int>();
+    int2ch = new map<int, char>();
+    
+    for(int i=0; i<n; i++){
+            ch2int->insert(pair<char, int>(vertexs[i], i));
+            int2ch->insert(pair<int, char>(i, vertexs[i]));
+    }
+}
+
 Graph::~Graph(){
     if(ch2int)
         delete ch2int;
@@ -23,7 +34,7 @@ Graph::~Graph(){
 
 
 void Graph::createGraphMatrx(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori,
-                                 vector<vector<int>> &matrix){
+                                 vector<vector<GMNode*>> &matrix){
     /**
      *   @letters: {{'A', 'B'}, {'B', 'C'}, ...}
      *   @weights: {   1,          2,       ...}
@@ -33,20 +44,21 @@ void Graph::createGraphMatrx(const vector<vector<char>> &letters, const vector<i
     // 初始化
     map<char, int>::iterator it1, it2;
     for(int i=0; i<letters.size(); i++)
-    {   
+    {
         it1 = ch2int->find(letters[i][0]), it2 = ch2int->find(letters[i][1]);
         
-        matrix[it1->second][it2->second] = weights[i];
+        GMNode* mNode = new GMNode(i, weights[i], it1->second, it2->second);
+        matrix[it1->second][it2->second] = mNode;
 
         if (ori)
-            matrix[it2->second][it1->second] = weights[i];
+            matrix[it2->second][it1->second] = mNode;
     }
 }
 
-void Graph::printMatrix(const vector<vector<int>> &matrix){
+void Graph::printMatrix(const vector<vector<GMNode*>> &matrix){
     for(int i=0; i < matrix.size(); i++){
         for(int j=0; j<matrix[i].size(); j++)
-            cout << matrix[i][j] << ' ';
+            cout << matrix[i][j]->weight << ' ';
         cout << endl;
     }
 }
@@ -57,9 +69,9 @@ void Graph::testMatrix(){
     vector<int> weights = {1, 3, 5, 2, 4};
     bool ori = true;
     
-    int nVertexs = 6;
+    int nVertexs = vertexs.size();
     // cout << sizeof(vertexs) << ' ' << sizeof(int) << ' ' << nVertexs << endl;
-    vector<vector<int>> matrix(nVertexs, vector<int>(nVertexs, 0));
+    vector<vector<GMNode*>> matrix(nVertexs, vector<GMNode*>(nVertexs, 0));
     createGraphMatrx(arcs, weights, ori, matrix);
     printMatrix(matrix);
 }

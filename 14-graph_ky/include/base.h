@@ -26,12 +26,19 @@ using namespace std;
 
 
 // --------------------------------------- 邻接矩阵 --------------------------------------- 
-// typedef struct GraphMatrix
-// {
-//         vector<char> vertices;            // 顶点名集合        例如: ['A', 'B', 'C', ...]
-//         vector<vector<int>> matrix;
-//         bool ori;            // 是否为有向图
-// } GMatrix;
+typedef struct GraphMatrixNode
+{
+        int arcId;
+        int weight;
+        int x, y;
+        GraphMatrixNode(){
+                arcId = -1;
+                weight = -1;
+                x=-1;
+                y=-1;
+        }
+        GraphMatrixNode(char d, int w, int _x, int _y):arcId(d), weight(w), x(_x), y(_y){}
+} GMNode;
 
 // --------------------------------------- 邻接表 --------------------------------------- 
 typedef struct GraphTableNode
@@ -42,8 +49,8 @@ typedef struct GraphTableNode
         struct GraphTableNode *next;
 
         GraphTableNode(){
-                name = ' ';
-                weight=0;
+                name = '#';
+                weight=-1;
                 next=nullptr;
         }
         GraphTableNode(char n, int w, GraphTableNode* _next): name(n), weight(w), next(_next){}
@@ -54,10 +61,11 @@ typedef struct GraphTableNode
 class Graph{
 public:
         Graph();
+        Graph(vector<char> &vertexs);
         ~Graph();
         
-        void createGraphMatrx(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori, vector<vector<int>> &matrix);
-        void printMatrix(const vector<vector<int>> &matrix);
+        void createGraphMatrx(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori, vector<vector<GMNode*>> &matrix);
+        void printMatrix(const vector<vector<GMNode*>> &matrix);
         void testMatrix();
 
         void createGraphTable(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori, vector<GTNode*> &table);
