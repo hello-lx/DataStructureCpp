@@ -147,7 +147,14 @@ void testQ43(){
     hw20();    
 }
 
-void testQ45(){}
+void testQ45(){
+    // hw06_();
+    // hw07_();
+    // hw08_();
+    // hw09_();
+    hw10_();
+}
+
 
 void myTest(){
     // struct Node* nodes[20];
@@ -166,7 +173,9 @@ int main(int argc, char const *argv[])
     // testQ05();
 
     // testQBase();
-    testQ43();
+    
+    // testQ43();
+
     testQ45();
 
     myTest();
