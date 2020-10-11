@@ -8,6 +8,7 @@
 #include "Q04.h"
 #include "Q05.h"
 #include "Q43.h"
+#include "Q44.h"
 #include "Q45.h"
 
 void testBase()
@@ -147,6 +148,10 @@ void testQ43(){
     hw20();    
 }
 
+void testQ44(){
+    hw05_();
+}
+
 void testQ45(){
     // hw06_();
     // hw07_();
@@ -176,7 +181,9 @@ int main(int argc, char const *argv[])
     
     // testQ43();
 
-    testQ45();
+    testQ44();
+
+    // testQ45();
 
     myTest();
     return 0;

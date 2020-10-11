@@ -8,6 +8,7 @@ struct Node{
     char name;
     int data;
     struct Node *lChild=nullptr, *rChild=nullptr, *parent=nullptr;  // tree
+    struct Node *fch=nullptr, *nsib=nullptr;  // 森林：左孩子和右兄弟
     struct Node *next=nullptr;                                      // stack / queue
     Node(char n, int d): name(n), data(d){}
 };

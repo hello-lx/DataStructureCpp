@@ -16,6 +16,7 @@ add_library(sharedLib SHARED
                                 
                                 "src/QBase.cc"
                                 "src/Q43.cc"
+                                "src/Q44.cc"
                                 "src/Q45.cc"
                                 )
 
