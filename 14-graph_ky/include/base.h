@@ -3,10 +3,8 @@
 
 #include <stdio.h>
 #include <vector>
-#include <malloc.h>
 #include <iostream>
 #include <map>
-#include <string>
 using namespace std;
 
 #define MAX 100
@@ -57,7 +55,7 @@ typedef struct GraphTableNode
 } GTNode;
 
 
-//  --------------------------------------- 邻接表  --------------------------------------- 
+//  --------------------------------------- 图  --------------------------------------- 
 class Graph{
 public:
         Graph();

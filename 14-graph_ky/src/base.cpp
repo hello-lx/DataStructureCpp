@@ -1,7 +1,5 @@
 #include "base.h"
 
-
-
 Graph::Graph(){
     int n = LENGTH(chars);
     ch2int = new map<char, int>();
@@ -33,6 +31,7 @@ Graph::~Graph(){
 }
 
 
+/* ------------------------------------ 图矩阵 ------------------------------------------ */
 void Graph::createGraphMatrx(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori,
                                  vector<vector<GMNode*>> &matrix){
     /**
@@ -58,7 +57,10 @@ void Graph::createGraphMatrx(const vector<vector<char>> &letters, const vector<i
 void Graph::printMatrix(const vector<vector<GMNode*>> &matrix){
     for(int i=0; i < matrix.size(); i++){
         for(int j=0; j<matrix[i].size(); j++)
-            cout << matrix[i][j]->weight << ' ';
+            if (matrix[i][j] != nullptr)
+                cout << matrix[i][j]->weight << ' ';
+            else
+                cout << 0 << ' ';
         cout << endl;
     }
 }
@@ -77,19 +79,19 @@ void Graph::testMatrix(){
 }
 
 
+/* ------------------------------------ 图链表 ------------------------------------------ */
 void Graph::createGraphTable(const vector<vector<char>> &letters, const vector<int> &weights, const bool &ori, vector<GTNode*> &table){
-    map<char, int>* heads = new map<char, int>();  // 用于判断是否需要重新创建表头
+    map<char, int>* heads = new map<char, int>();  // 存储表头，用于判断是否需要重新创建表头
     map<char, int>::iterator it;
     int headId=0;
 
-    for(int i; i<letters.size(); i++)
-    {   
-        it = heads->find(letters[i][0]);
-
-        if(it == heads->end())
+    for(int i=0; i<letters.size(); i++)
+    {
+        it = heads->find(letters[i][0]);  // 查找找到的表头
+        if(it == heads->end()) // 创建新的表头
         {
-            GTNode* n2 = new GTNode(letters[i][1], 0, nullptr);
-            GTNode* n1 = new GTNode(letters[i][0], weights[i], n2);
+            GTNode* n2 = new GTNode(letters[i][1], weights[i], nullptr);
+            GTNode* n1 = new GTNode(letters[i][0], 0, n2);
             heads->insert(pair<char, int>(letters[i][0], headId++));
             table.push_back(n1);
         }
@@ -98,21 +100,27 @@ void Graph::createGraphTable(const vector<vector<char>> &letters, const vector<i
             GTNode* head = table[it->second];
             while(head->next)
                 head = head->next;
-            head->next = new GTNode(letters[i][1], 0, nullptr);
-            head->weight = weights[i];
+            head->next = new GTNode(letters[i][1], weights[i], nullptr);
         }
-        cout << table.size() << endl;
-    }
 
-    // for(int i=0; i<table.size(); i++){
-    //     GTNode* n = table[i];
-    //     cout << n->name;
-    //     while(n->next){
-    //         cout << " =" << n->weight << "=> " << n->next->name;
-    //         n = n->next;
-    //     }
-    //     cout << endl;
-    // }
+        if (ori == false){      // 无向图，需要创建反向链接
+            it = heads->find(letters[i][1]);  // 查找找到的表头
+            if(it == heads->end()) // 创建新的表头
+            {
+                GTNode* n2 = new GTNode(letters[i][0], weights[i], nullptr);
+                GTNode* n1 = new GTNode(letters[i][1], 0, n2);
+                heads->insert(pair<char, int>(letters[i][1], headId++));
+                table.push_back(n1);
+            }
+            else
+            {
+                GTNode* head = table[it->second];
+                while(head->next)
+                    head = head->next;
+                head->next = new GTNode(letters[i][0], weights[i], nullptr);
+            }            
+        }
+    }
 }
 
 void Graph::printTable(const vector<GTNode*> &table)
@@ -121,7 +129,7 @@ void Graph::printTable(const vector<GTNode*> &table)
         GTNode* n = table[i];
         cout << n->name;
         while(n->next){
-            cout << " =" << n->weight << "=> " << n->next->name;
+            cout << " -" << n->next->weight << "-> " << n->next->name;
             n = n->next;
         }
         cout << endl;
@@ -133,7 +141,7 @@ void Graph::testTable()
     vector<char> vertexs = {'A', 'B', 'C', 'D', 'E', 'F'};
     vector<vector<char>> arcs = {{'A', 'B'}, {'A', 'C'}, {'B', 'F'}, {'C', 'D'}, {'D', 'E'}};
     vector<int> weights = {1, 3, 5, 2, 4};
-    bool ori = true;
+    bool ori = false;
 
     vector<GTNode*> table;
     createGraphTable(arcs, weights, ori, table);

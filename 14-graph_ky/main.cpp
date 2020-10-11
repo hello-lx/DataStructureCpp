@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string>
 #include "QBase.h"
-#include "base.h"
+// #include "base.h"
 #include "Q01.h"
 #include "Q02.h"
 #include "Q03.h"
@@ -10,11 +10,11 @@
 #include "Q05.h"
 #include "Q53.h"
 
-void testGraph(){
-    Graph* g = new Graph();
-    g->testMatrix();
-    // g->testTable();
-}
+// void testGraph(){
+//     Graph* g = new Graph();
+//     // g->testMatrix();
+//     g->testTable();
+// }
 
 
 void testQ01(){
@@ -50,7 +50,7 @@ void testQ53(){
 
 int main(int argc, char const *argv[])
 {
-    testGraph();
+    // testGraph();
     
     testQ01();
     testQ02();

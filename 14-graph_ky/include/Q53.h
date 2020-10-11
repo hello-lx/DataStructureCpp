@@ -1,6 +1,7 @@
 #ifndef Q53_H
 #define Q53_H
 
+#include "QBase.h"
 
 /* 5.3-综合题02：设计一个算法，判断一个无向图是否为一颗树
 */
