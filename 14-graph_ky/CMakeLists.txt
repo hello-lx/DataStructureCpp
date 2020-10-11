@@ -14,8 +14,9 @@ add_library(sharedLib SHARED
             "src/Q05.cpp"
 
             "src/Q53.cpp"
-            "src/QBase.cc"
+
+            "src/QBase.cpp"
             )
 
 add_executable(m main.cpp)
-target_link_libraries(m sharedLib)
+target_link_libraries(m sharedLib sharedLib2)
