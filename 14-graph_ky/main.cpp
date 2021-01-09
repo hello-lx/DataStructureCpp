@@ -8,14 +8,15 @@
 #include "Q05.h"
 #include "Q53.h"
 #include "QBase.h"
+#include "base2.h"
 
-// template<typename  T> 
-// void swap2(T& t1, T& t2) {
-//     T tmpT;
-//     tmpT = t1;
-//     t1 = t2;
-//     t2 = tmpT;
-// }
+template<typename  T> 
+void swap2(T& t1, T& t2) {
+    T tmpT;
+    tmpT = t1;
+    t1 = t2;
+    t2 = tmpT;
+}
 
 
 void testGraph(){
@@ -32,11 +33,27 @@ void testGraph(){
 }
 
 
+void testBase2()
+{
+    MGraph MG;
+    GraphAdjList GL;
+    CreateMGraph(&MG);
+    CreateALGraph(MG, &GL);
+    
+    printf("\n1.图的邻接表的深度优先遍历为：");
+    DFSTraverse(GL);
+
+    printf("\n2.图的邻接表的广度优先遍历为：");
+    BFSTraverse(GL);
+
+}
+
+
 void testQ01(){
-    testDFSGT();
-    testDFSGM();
-    testBFSGT();
-    testBFSGM();
+    // testDFSGT();
+    // testDFSGM();
+    // testBFSGT();
+    // testBFSGM();
 }
 
 
@@ -68,14 +85,16 @@ void testQ53(){
 
 int main(int argc, char const *argv[])
 {
-    testGraph();
+    // testGraph();
     
-    testQ01();
-    testQ02();
-    testQ03();
-    testQ04();
-    testQ05();
-    testQ53();
+    // testQ01();
+    // testQ02();
+    // testQ03();
+    // testQ04();
+    // testQ05();
+    // testQ53();
+
+    testBase2();
 
     return 0;
 }

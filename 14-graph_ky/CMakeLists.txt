@@ -7,6 +7,7 @@ include_directories("include/")
 
 add_library(sharedLib SHARED
             # "src/base.cpp"
+            "src/base2.cpp"
             "src/Q01.cpp"
             "src/Q02.cpp"
             "src/Q03.cpp"
@@ -15,8 +16,8 @@ add_library(sharedLib SHARED
 
             "src/Q53.cpp"
 
-            "src/QBase.cpp"
+            # "src/QBase.cpp"
             )
 
 add_executable(m main.cpp)
-target_link_libraries(m sharedLib sharedLib2)
+target_link_libraries(m sharedLib)
