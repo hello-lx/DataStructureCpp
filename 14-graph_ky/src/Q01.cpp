@@ -1,102 +1,301 @@
-// #include <iostream>
-// #include "Q01.h"
-// #include "base.h"
+#include "base2.h"
+#include <iostream>
+using namespace std;
 
-// /*
-//         A ----> B ----> F
-//          \     / 
-//           \   /    
-//             C ----> D ----> E
-// */
-// vector<vector<char>> arcs = {{'A', 'B'}, {'A', 'C'}, {'B', 'C'}, {'B', 'F'}, {'C', 'D'}, {'D', 'E'}};
-// vector<int> weights = {1, 3, 5, 2, 4, 6};
-// vector<char> vertexs = {'A', 'B', 'C', 'D', 'E', 'F'};
-// Graph* graph = new Graph(vertexs);
+Status InitQueue(Queue *Q)
+{
+    Q->front = 0;
+    Q->rear = 0;
 
-// int nVertexs = vertexs.size();
+    return OK;
+}
 
-// void createGT(vector<GTNode*> &graphTable){
-//     bool ori = false;
-//     graph->createGraphTable(arcs, weights, ori, graphTable);
-//     // graph->printTable(graphTable);
+Status QueueEmpty(Queue Q)
+{
+    if(Q.front == Q.rear)
+        return TRUE;
 
-// }
+    return FALSE;
+}
 
-// void createGM(vector<vector<GMNode*>> &graphMatrix){
-//     bool ori = false;
-//     graph->createGraphMatrix(arcs, weights, ori, graphMatrix);
-//     // graph->printMatrix(graphMatrix);
-// }
+Status EnQueue(Queue *Q, int e)
+{
+    if((Q->rear+1) % MAXSIZE == Q->front)
+        return ERROR;
 
+    Q->data[Q->rear] = e;               
+    Q->rear = (Q->rear + 1) % MAXSIZE;   // 将 rear 指针向后移一位， 若到最后则转到数组头部
 
-// /* --------- 1. 对图表进行广度优先搜索 --------- */
-// void GTBFS(vector<GTNode*> &gt, int vId, LinkQueue<GTNode>* queue, bool visited[]){
-//     // cout << vertexs[vId] << endl;
-//     visited[vId] = true;
+    return OK;
+}
 
-//     while(gt[vId]->next)
-//     {
-//         int nodeId = graph->ch2int[gt[vId]->next->name];
-        
-//         if(visited[nodeId] == false)
-//         {
-//             queue.push_back(gt[vId]->next);
-//             visited[nodeId] = true;
-//         }
-//     }
-// }
+Status DeQueue(Queue *Q, int *e)  /* 若队列不空,则删除Q中队头元素,用e返回其值 */
+{
+    if(Q->front == Q->rear)         /* 队列空的判断 */
+        return ERROR;
+    *e = Q->data[Q->front];
+    Q->front = (Q->front + 1) % MAXSIZE;    /* front指针向后移一位置, 若到最后则转到数组头部 */
 
-// void testBFSGT(){
-//     vector<GTNode*> gt;
-//     createGT(gt);
+    return OK;
+}
+
+void CreateMGraph(MGraph *G)
+{
+    int i, j;
     
-//     bool visited[nVertexs];
-//     for(int i=0; i<nVertexs; i++)
-//         visited[i] = false;
+    G->numEdges = 15;
+    G->numVertexes = MAXSIZE;
     
-//     auto queue = new LinkQueue<GTNode>();
-//     // TODO: 创建图结点的队列
+    /* 读入顶点信息，建立顶点表 */    
+    G->vexs[0] = 'A';
+    G->vexs[1] = 'B';
+    G->vexs[2] = 'C';
+    G->vexs[3] = 'D';
+    G->vexs[4] = 'E';
+    G->vexs[5] = 'F';
+    G->vexs[6] = 'G';
+    G->vexs[7] = 'H';
+    G->vexs[8] = 'I';
+
+    for(int i=0; i<G->numVertexes; i++)
+    {
+        for(int j=0; j<G->numVertexes; j++)
+        {
+            G->arc[i][j] = 0;
+        }
+    }
     
-//     for(int i=0; i<nVertexs; i++)
-//         if (visited[i] == false)
-//             GTBFS(gt, i, queue, visited);
-// }
+/*
+        A   B   C   D   E   F   G   H   I
+    A   0   1   0   0   0   1   0   0   0
+    B   0   0   1   0   0   0   1   0   1
+    C   0   0   0   1   0   0   0   0   1
+    D   0   0   0   0   1   0   1   1   1
+    E   0   0   0   0   0   1   0   1   0
+    F   0   0   0   0   0   0   1   0   0
+    G   0   0   0   0   0   0   0   1   0
+    H   0   0   0   0   0   0   0   0   0
+    I   0   0   0   0   0   0   0   0   0
+*/
 
+    G->arc[0][1] = 1;
+    G->arc[0][5] = 1;
+    G->arc[1][2] = 1;
+    G->arc[1][6] = 1;
+    G->arc[1][8] = 1;
+    G->arc[2][3] = 1;
+    G->arc[2][8] = 1;
+    G->arc[3][4] = 1;
+    G->arc[3][6] = 1;
+    G->arc[3][7] = 1;
+    G->arc[3][8] = 1;
+    G->arc[4][5] = 1;
+    G->arc[4][7] = 1;
+    G->arc[5][6] = 1;
+    G->arc[6][7] = 1;
 
+    for(int i=0; i<G->numVertexes; i++)
+    {
+        for(int j=i; j<G->numVertexes; j++)
+        {
+            G->arc[j][i] = G->arc[i][j];
+        }
+    }
 
-// /* --------- 2. 对图表进行深度优先搜索 --------- */
-// void GTDFS(){
+    cout << "邻接矩阵创建完成:" << endl;
+    for(int i=0; i<G->numVertexes; i++)
+    {
+        for(int j=0; j<G->numVertexes; j++)
+        {
+            cout << G->arc[i][j] << ' ';
+        }
+        cout << endl;
+    }
+}
 
-// }
+/* 利用邻接矩阵构建邻接表 */
+void CreateALGraph(MGraph G, GraphAdjList *GL)
+{
+    EdgeNode* e;
+    *GL = (GraphAdjList)malloc(sizeof(graphAdjList));
+    (*GL)->numVertexes = G.numVertexes;
+    (*GL)->numEdges = G.numEdges;
 
-// void testDFSGT(){
-//     vector<GTNode*> gt;
-//     createGT(gt);
+    for(int i=0; i<G.numVertexes; i++)  /* 读入顶点信息,建立顶点表 */
+    {
+        (*GL)->adjList[i].in = 0;
+        (*GL)->adjList[i].data = G.vexs[i];
+        (*GL)->adjList[i].firstEdge = nullptr;  // 将边表置空
+    }
+
+    for(int i=0; i<G.numVertexes; i++)
+    {
+        for(int j=0; j<G.numVertexes; j++)
+        {
+            if(G.arc[i][j] == 1)
+            {
+                e = (EdgeNode*)malloc(sizeof(EdgeNode));
+                e->adjvex = j;                              /* 邻接序号为j */
+                e->next = (*GL)->adjList[i].firstEdge;      /* 将当前顶点上的指向的结点指针赋值给e */
+                (*GL)->adjList[i].firstEdge = e;            /* 将当前顶点的指针指向e */ 
+                (*GL)->adjList[j].in++;
+            }
+        }
+    }
+
+    for(int i=0; i<MAXSIZE; i++)
+    {
+        (*GL)->vexs[i] = G.vexs[i];
+    }
+
+    cout << "邻接表创建完成：" << endl;
+    for(int i=0; i<(*GL)->numVertexes; i++)
+    {
+        cout << (*GL)->vexs[i];
+        e = (*GL)->adjList[i].firstEdge;
+        while(e)
+        {
+            cout << "->" << G.vexs[e->adjvex];
+            e = e->next;
+        }
+        cout << endl;
+    }
+}
+
+/* 邻接表的深度优先递归算法 */
+void DFS(GraphAdjList GL, int adjvex)
+{
+
+    EdgeNode* p;
+    visited[adjvex] = TRUE;
+    printf("%c ", GL->adjList[adjvex].data);  /* 打印顶点,也可以其它操作 */
+    p = GL->adjList[adjvex].firstEdge;
     
-// }
+    while(p)
+    {
+        if(!visited[p->adjvex])
+            DFS(GL, p->adjvex);     /* 对为访问的邻接顶点递归调用 */
+        p = p->next;                // 链表中当前节点的下一个节点
+    }
+}
+
+/* 邻接表的深度遍历操作 */
+void DFSTraverse(GraphAdjList GL)
+{
+    EdgeNode *p;
+    Queue q;
+    for(int i=0; i<GL->numVertexes; i++)
+        visited[i] = FALSE;
+
+    for(int i=0; i<GL->numVertexes; i++)
+    {
+        if(!visited[i])
+            DFS(GL, i);
+    }
+}
+
+
+/* 邻接表的广度遍历算法 */
+void BFSTraverse(GraphAdjList GL)
+{
+    /*
+        1. 对顶点遍历
+        2. 将遍历的节点放入队列中,队列存放当前顶点的周围节点
+        3. 遍历队列
+        4. 遍历队列中每个节点的链表(即周围的节点)
+    */
+    EdgeNode *p;
+    Queue Q;
+
+    for(int i=0; i<GL->numVertexes; i++)
+        visited[i] = FALSE;
+
+    for(int i=0; i<GL->numVertexes; i++)
+    {
+        if(!visited[i])
+        {
+            visited[i] = TRUE;
+            printf("%c ", GL->adjList[i].data);
+            EnQueue(&Q, i);
+            while(!QueueEmpty(Q))
+            {
+                DeQueue(&Q, &i);
+                p = GL->adjList[i].firstEdge;
+                while(p)
+                {
+                    if(!visited[p->adjvex])
+                    {
+                        visited[p->adjvex] = TRUE;
+                        printf("%c ", GL->adjList[p->adjvex].data);
+                        EnQueue(&Q, p->adjvex);
+                    }
+                    p = p->next;
+                }
+            }
+        }
+    }
+    cout << endl;
+}
 
 
 
-// /* --------- 3. 对图矩阵进行广度优先搜索 --------- */
-// void GMBFS(){
+/* ----------------- 二：矩阵的深度搜索和广度搜索 ----------------- */
 
-// }
+/* 图矩阵的深度优先递归算法 */
+void DFS(MGraph GM, int vertexId)
+{
+    for(int adjVex=0; adjVex<GM.numVertexes; adjVex++)
+    {
+        if(visited2[adjVex] == FALSE)
+        {
+            printf("%c. ", GM.vexs[adjVex]);
+            visited2[adjVex] = TRUE;
+        }
 
-// void testBFSGM(){
-//     vector<vector<GMNode*>> gm(vertexs.size(), vector<GMNode*>(vertexs.size(), 0));
-//     createGM(gm);
+        if((GM.arc[vertexId][adjVex] != 0) && (visited2[adjVex] == FALSE))
+        {
+            printf("%c ", GM.vexs[adjVex]);
+            visited2[adjVex] = TRUE;
+            DFS(GM, adjVex);    
+        }
+    }
+}
 
-// }
+/* 图矩阵的深度遍历操作 */
+void DFSTraverse(MGraph GM)
+{
+    for(int i=0; i<GM.numVertexes; i++)
+        visited2[i] = FALSE;
 
+    DFS(GM, 0);
+}
 
+/* 图矩阵的广度遍历操作 */
+void BFSTraverse(MGraph GM)
+{
+    for(int i=0; i<GM.numVertexes; i++)
+        visited2[i] = FALSE;
 
-// /* --------- 4. 对图矩阵进行深度优先搜索 --------- */
-// void GMDFS(){
+    Queue Q;
+    InitQueue(&Q);
+    int vexId = 0;  // start vertex
 
-// }
+    EnQueue(&Q, vexId);
+    while(!QueueEmpty(Q))
+    {
+        DeQueue(&Q, &vexId);
+        if(!visited2[vexId])
+        {
+            printf("%c. ", GM.vexs[vexId]);
+            visited2[vexId] = TRUE;
+        }
 
-// void testDFSGM(){
-//     vector<vector<GMNode*>> gm(vertexs.size(), vector<GMNode*>(vertexs.size(), 0));
-//     createGM(gm);
-    
-// }
+        for(int adjVex=0; adjVex<GM.numVertexes; adjVex++)
+        {
+            if(GM.arc[vexId][adjVex] != 0 && visited2[adjVex] == FALSE)
+                EnQueue(&Q, adjVex);
+        }
+    }
+
+    cout << endl;
+}

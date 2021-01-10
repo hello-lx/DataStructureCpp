@@ -8,7 +8,6 @@
 #include "Q05.h"
 #include "Q53.h"
 #include "QBase.h"
-#include "base2.h"
 
 template<typename  T> 
 void swap2(T& t1, T& t2) {
@@ -45,6 +44,13 @@ void testBase2()
 
     printf("\n2.图的邻接表的广度优先遍历为：");
     BFSTraverse(GL);
+
+
+    printf("\n3.图的矩阵的深度优先遍历为：");
+    DFSTraverse(MG);
+
+    printf("\n4.图的矩阵的广度优先遍历为：");
+    BFSTraverse(MG);
 
 }
 
