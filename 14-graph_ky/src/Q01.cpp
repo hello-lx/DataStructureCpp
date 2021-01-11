@@ -1,4 +1,4 @@
-#include "base2.h"
+#include "Q01.h"
 #include <iostream>
 using namespace std;
 
@@ -41,8 +41,6 @@ Status DeQueue(Queue *Q, int *e)  /* 若队列不空,则删除Q中队头元素,�
 
 void CreateMGraph(MGraph *G)
 {
-    int i, j;
-    
     G->numEdges = 15;
     G->numVertexes = MAXSIZE;
     

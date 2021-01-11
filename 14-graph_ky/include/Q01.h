@@ -1,3 +1,6 @@
+#ifndef Q01_H
+#define Q01_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,7 +13,7 @@
 #define FALSE 0
 
 #define MAXSIZE 9
-#define MAXEDGE 9
+#define MAXEDGE 15
 #define MAXVEX 9
 
 typedef int Status;   /* Status是函数的类型,其值是函数结果状态代码,如OK等 */
@@ -51,7 +54,7 @@ typedef struct
     AdjList adjList;
     VertexType vexs[MAXVEX];
     int numVertexes, numEdges;   // 图中当前顶点数和边数
-    
+
 } graphAdjList, *GraphAdjList;
 
 
@@ -104,3 +107,5 @@ void DFSTraverse(MGraph GM);
 
 /* 图矩阵的广度遍历操作 */
 void BFSTraverse(MGraph GM);
+
+#endif

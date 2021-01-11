@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include "Q01.h"
+// #include "Q01.h"
 #include "Q02.h"
 #include "Q03.h"
 #include "Q04.h"
@@ -32,39 +32,41 @@ void testGraph(){
 }
 
 
-void testBase2()
-{
-    MGraph MG;
-    GraphAdjList GL;
-    CreateMGraph(&MG);
-    CreateALGraph(MG, &GL);
+// void testQ01()
+// {
+//     MGraph MG;
+//     GraphAdjList GL;
+//     CreateMGraph(&MG);
+//     CreateALGraph(MG, &GL);
     
-    printf("\n1.图的邻接表的深度优先遍历为：");
-    DFSTraverse(GL);
+//     printf("\n1.图的邻接表的深度优先遍历为：");
+//     DFSTraverse(GL);
 
-    printf("\n2.图的邻接表的广度优先遍历为：");
-    BFSTraverse(GL);
-
-
-    printf("\n3.图的矩阵的深度优先遍历为：");
-    DFSTraverse(MG);
-
-    printf("\n4.图的矩阵的广度优先遍历为：");
-    BFSTraverse(MG);
-
-}
+//     printf("\n2.图的邻接表的广度优先遍历为：");
+//     BFSTraverse(GL);
 
 
-void testQ01(){
-    // testDFSGT();
-    // testDFSGM();
-    // testBFSGT();
-    // testBFSGM();
-}
+//     printf("\n3.图的矩阵的深度优先遍历为：");
+//     DFSTraverse(MG);
+
+//     printf("\n4.图的矩阵的广度优先遍历为：");
+//     BFSTraverse(MG);
+
+// }
 
 
 void testQ02(){
+    MGraph MG;
+    GraphAdjList LG;
+    CreateWeightGraphMatrix(&MG);
+    CreateWeightGraphList(MG, &LG);
     
+    Prim(MG);
+//     Prim(LG);
+    
+    Kruskal(MG);
+    cout << "end" << endl;
+//     Kruskal(LG);
 }
 
 
@@ -94,13 +96,11 @@ int main(int argc, char const *argv[])
     // testGraph();
     
     // testQ01();
-    // testQ02();
+    testQ02();
     // testQ03();
     // testQ04();
     // testQ05();
     // testQ53();
-
-    testBase2();
 
     return 0;
 }

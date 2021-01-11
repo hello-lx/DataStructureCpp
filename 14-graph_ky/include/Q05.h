@@ -7,6 +7,6 @@
  * 结构：带权有向图
 */
 
-
+void keyWay();
 
 #endif

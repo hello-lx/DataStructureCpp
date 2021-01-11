@@ -7,6 +7,6 @@
  * 有向无环图：DAG
 */
 
-
+void DAG();
 
 #endif

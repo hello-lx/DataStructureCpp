@@ -7,7 +7,6 @@ include_directories("include/")
 
 add_library(sharedLib SHARED
             # "src/base.cpp"
-            "src/base2.cpp"
             "src/Q01.cpp"
             "src/Q02.cpp"
             "src/Q03.cpp"

@@ -7,8 +7,8 @@
  * 算法： Dijkstra 和 Floyd
 */
 
+void Dijkstra();
 
-
-
+void Floyd();
 
 #endif
