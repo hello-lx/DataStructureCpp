@@ -71,7 +71,13 @@ void testQ02(){
 
 
 void testQ03(){
-    
+    // Graph_DG *graph = new Graph_DG();
+    // graph->createGraph();
+    // graph->print();
+    // graph->Dijkstra(1);
+    // graph->print_path(1);
+
+    Floyd();
 }
 
 
@@ -96,8 +102,8 @@ int main(int argc, char const *argv[])
     // testGraph();
     
     // testQ01();
-    testQ02();
-    // testQ03();
+    // testQ02();
+    testQ03();
     // testQ04();
     // testQ05();
     // testQ53();

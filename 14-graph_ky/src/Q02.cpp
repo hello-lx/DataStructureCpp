@@ -190,17 +190,18 @@ void Prim(GraphAdjList LG)
 void CreateEdges(const MGraph *MG, Edge edges[])
 {
     cout << "bug" << endl;
-    for(int i; i<MAXSIZE; i++)
+    for(int i=0; i<MAXSIZE; i++)
     {
         cout << MG->vexs[i] << ' ';
     }
     cout << endl;
+    cout << "bug" << endl;
 
     int edgeId = 0;
     Edge* e;
     int vertexValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};  // 顶点实际id
     for(int i=0; i<MG->numVertexes; i++)
-    {
+    {        
         // MG.arc[i][i] = vertexValues[i];  // 对角线存放顶点的值
         for(int j=0; j<MG->numVertexes; j++)
         {
@@ -214,6 +215,13 @@ void CreateEdges(const MGraph *MG, Edge edges[])
                 e->endVex = vertexValues[j];
                 edges[edgeId] = *e;
                 edgeId++;
+
+                cout << i << ' ' << j << ' ' << MG->arc[i][j] << endl;
+                for(int k=0; k<MAXSIZE; k++)
+                {
+                    cout << (*MG).vexs[k] << ' ';
+                }
+                cout << endl;
             }
         }
 
@@ -221,6 +229,13 @@ void CreateEdges(const MGraph *MG, Edge edges[])
         assists[i].sign = i;  // vertex id
     }
 
+    cout << "bug" << endl;
+    for(int x=0; x<MAXSIZE; x++)
+    {
+        cout << (*MG).vexs[x] << ' ';
+    }
+    cout << endl;
+    cout << "bug" << endl;
 }
 
 int cmp(const void *a, const void *b)
