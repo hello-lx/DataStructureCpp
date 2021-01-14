@@ -82,7 +82,7 @@ void testQ03(){
 
 
 void testQ04(){
-    
+    DAG();
 }
 
 
@@ -103,10 +103,10 @@ int main(int argc, char const *argv[])
     
     // testQ01();
     // testQ02();
-    testQ03();
+    // testQ03();
     // testQ04();
     // testQ05();
-    // testQ53();
+    testQ53();
 
     return 0;
 }
