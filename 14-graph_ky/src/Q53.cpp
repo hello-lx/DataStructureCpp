@@ -2,194 +2,95 @@
 
 // 5.3-综合题02：设计一个算法，判断一个无向图是否为一颗树
 
-Graph2::Graph2()
+int FirstNeighbor(GraphQ53 &G, int v)
 {
-    vextexNum = vexNum;
-    int adjMat = new int[vextexNum][vextexNum];
-    for(int i=0; i<vertexNum; i++)
-    {
-        adjMat[i] = new int[vertexNum];
-        for(int j=0; j<vertexNum; j++)
-        {
-            adjMat[i][j] = INF_MAX;
-        }
-    }
-    adjMat[0][1] = 2;
-    adjMat[1][2] = 5;
-    adjMat[1][6] = 3;
-    adjMat[1][8] = 7;
-    adjMat[2][8] = 2;
-    adjMat[3][4] = 6;
-    adjMat[4][5] = 5;
-    adjMat[6][7] = 8;
-    adjMat[4][7] = 4;
-    adjMat[3][8] = 9;
-
-    for(int i=0; i<vertexNum; i++)
-        for(int j=0; j<vextexNum; j++)
-        {
-            adjMat[j][i] = adjMat[i][j];
-        }
-        
-    A = new ENode*[vexNum];
-    for(int i=0; i<vexNum; i++)
-    {
-        A[i] = new ENode[vexNum];
-        for(int j=0; j<vexNum; j++)
-            A[i][j] = nullptr;
-    }
-    // A[0][1] = ;
-    // A[1][0] = ;
-
-    // A[1][2] = ;
-    // A[2][1] = ;
-
-    // A[1][6] = ;
-    // A[6][1] = ;
-
-    // A[1][8] = ;
-    // A[8][1] = ;
-
-    // A[2][8] = ;
-    // A[8][2] = ;
-
-    // A[3][4] = ;
-    // A[4][3] = ;
-
-    // A[5][4] = ;
-    // A[4][5] = ;
-
-    // A[6][7] = ;
-    // A[7][6] = ;
-
-    // A[7][4] = ;
-    // A[4][7] = ;
-
-    // A[8][3] = ;
-    // A[3][8] = ;
-
-
-    ENode *node;
-    A[0][1] = new ENode(1, 2, nullptr);
-    node = new ENode(1, 2, nullptr);
-    A[0][1] = &node;
-    // A[0][1] = new ENode(1, 2, nullptr);
-    // A[1][0] = new ENode(0, 2, nullptr);
-
-    // A[1][2] = new ENode(2, 5, nullptr);
-    // A[2][1] = new ENode(1, 5, nullptr);
-
-    // A[1][6] = new ENode(6, 3, nullptr);
-    // A[6][1] = new ENode(1, 3, nullptr);
-
-    // A[1][8] = new ENode(8, 7, nullptr);
-    // A[8][1] = new ENode(1, 7, nullptr);
-
-    // A[2][8] = new ENode(8, 2, nullptr);
-    // A[8][2] = new ENode(2, 2, nullptr);
-
-    // A[3][4] = new ENode(4, 6, nullptr);
-    // A[4][3] = new ENode(3, 6, nullptr);
-
-    // A[5][4] = new ENode(4, 5, nullptr);
-    // A[4][5] = new ENode(5, 5, nullptr);
-
-    // A[6][7] = new ENode(7, 8, nullptr);
-    // A[7][6] = new ENode(6, 8, nullptr);
-
-    // A[7][4] = new ENode(4, 4, nullptr);;
-    // A[4][7] = new ENode(7, 4, nullptr);;
-
-    // A[8][3] = new ENode(3, 9, nullptr);;
-    // A[3][8] = new ENode(8, 9, nullptr);;
-
-    // A[0][1].next = A[1][]
+    return G.adjList[v].firstEdge->adjvex;
 }
 
-
-int FirstNeighbor(Graph &G, int v)
+int NextNeighbor(GraphQ53 &G, int v, int &w)
 {
-    for(int i=0; i<G.vertexNum; i++)
-    {
-        if(G.A[v][i] != nullptr)
-            return i;
-    }
+    // while (w < G.vertexNum)
+    // {
+    //     if(G.A[v][++w] != nullptr)
+    //         return w;
+    // }
     return -1;
 }
 
-int NextNeighbor(Graph &G, int v, int &w)
-{
-    while (w<G->vertexNum)
-    {
-        if(G->A[v][++w] != nullptr)
-            return w;
-    }
-    return -1;
-}
+// void DFS(GraphQ53 &G, int &v, int &VNum, int &ENum, int visited[]) {
+// 	visited[v] = true;
+// 	VNum++;
+//     int w = 0;
+// 	// int w = NextNeighbor(G, v, visited);
+// 	w = NextNeighbor(G, v, w);
+// 	while (w!=-1)
+// 	{
+// 		ENum++;
+// 		if (!visited[w])
+// 			DFS(G, v, VNum, ENum, visited);
+// 		w = NextNeighbor(G, v, w);
+// 	}
+//     v++;
+// }
 
-void DFS(Graph2 &G, int &v, int &VNum, int &ENum, int visited[]) {
-	visited[v] = true;
-	VNum++;
-	// int w = NextNeighbor(G, v, visited);
-	int w = NextNeighbor(G, v, 0);
-	while (w!=-1)
+bool GraphIsTree(GraphQ53 &G) {
+	for (int i = 0; i < G.vertexNum; i++)
 	{
-		ENum++;
-		if (!visited[w])
-			DFS(G, v, VNum, ENum, visited);
-		w = NextNeighbor(G, v, w);
-	}
-    v++;
-}
-
-bool GraphIsTree(Graph &G) {
-	for (int i = 0; i < G.vexnum; i++)
-	{
-		visited[i] = false;
+		visits[i] = false;
 	}
 	int VNum = 0;
 	int ENum = 0;
 	
     int v = 0;
-    DFS(G, v, VNum, ENum, visited);
+    DFS(G, v, VNum, ENum, visits);
 
-	if (VNum == G.vexnum&& ENum == 2 * (G.vexnum - 1))
+	if (VNum == G.vertexNum&& ENum == 2 * (G.vertexNum - 1))
 		return true;
 	else
 		return false;
 }
  
-void DFS(GraphQ53 &g, int vexId, int &vn, int &ve, bool *visited)
+void DFS(GraphQ53 &g, int vexId, int &vn, int &ve, bool visited[9])
 {
-    for(int i=0; i<g.vertexNum; i++)
+    ENode* p;
+
+    if (!visited[vexId])
     {
-        if (!visited[i])
-        {
-            vn++;
-            visited[i] = true;
-        }
-        if ((g.A[vexId][i] < INF_MAX) && (visited[i] == false))
+        vn++;
+        visited[vexId] = true;
+    }
+
+    p = g.adjList[vexId].firstEdge;
+    while(p)
+    {
+        if(!visited[p->adjvex]) 
         {
             ve++;
-            visited[i] = true;
-            DFS(g, i, vn, ve, visited);
+            visited[vexId] = true;
+            DFS(g, p->adjvex, vn, ve, visited);
         }
     }
+    // if ((g.A[vexId][i] < INF_MAX) && (visited[i] == false))
+    // {
+    //     ve++;
+    //     visited[i] = true;
+    //     DFS(g, i, vn, ve, visited);
+    // }
 }
 
-bool isTree(GraphQ53 g)
+bool isTree(GraphQ53 *g)
 {
-    for(int i=0; i<g.vertexNum; i++)
+    for(int i=0; i<g->vertexNum; i++)
     {
         visits[i] = false;
     }
 
     // 顶点数量和顶点边数
     int vn = 0, ve = 0;
-    DFS(g, 0, vn, ve, visits);
+    DFS(*g, 0, vn, ve, visits);
 
     cout << vn << ' ' << ve << endl;
-    if(vn==g.vertexNum && ve==2*(g.vertexNum-1))
+    if(vn==g->vertexNum && ve==2*(g->vertexNum-1))
     {
         cout << "true" << endl;
         return true;
@@ -201,15 +102,55 @@ bool isTree(GraphQ53 g)
     }
 }
 
+void CreateALGraph(GraphQ53 &graph)
+{
+    int **A = new int*[vexNum];
+    for(int i=0; i<vexNum; i++)
+    {
+        A[i] = new int[vexNum];
+        for(int j=0; j<vexNum; j++)
+            A[i][j] = INF_MAX;
+    }
+
+    A[0][1] = 2;
+    A[1][2] = 5;
+    A[1][6] = 3;
+    A[1][8] = 7;
+    A[2][8] = 2;
+    A[3][4] = 6;
+    A[5][4] = 5;
+    A[6][7] = 8;
+    A[7][4] = 4;
+    A[8][3] = 9;
+
+    for(int i=0; i<vexNum; i++)
+        for(int j=0; j<vexNum; j++)
+            A[j][i] = A[i][j];
+
+    graph = (GraphQ53)malloc(sizeof(GraphQ53));
+    ENode *node;
+    for(int i=0; i<vexNum; i++)
+    {
+        graph.adjList[i].firstEdge = nullptr;
+        for(int j=0; j<vexNum; j++)
+        {
+            if(A[i][j] != INF_MAX)
+            {
+                node = (ENode*)malloc(sizeof(ENode));
+                node->adjvex = j;
+                node->weight = A[i][j];
+                node->next = graph.adjList[i].firstEdge;
+                graph.adjList[j].firstEdge = node;
+            }
+        }
+    }
+}
+
 void hw02(){
-    // Graph： 邻接链表
-
-    GraphQ53 *g = new GraphQ53();
-    isTree(*g);
-
-    Graph2 g;
-    
-    
+    // Graph： 邻接图链表
+    GraphQ53 graph;
+    CreateALGraph(graph);
+    isTree(graph);
 }
 
 

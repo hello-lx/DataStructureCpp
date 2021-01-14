@@ -163,7 +163,6 @@ void CreateALGraph(MGraph G, GraphAdjList *GL)
 /* 邻接表的深度优先递归算法 */
 void DFS(GraphAdjList GL, int adjvex)
 {
-
     EdgeNode* p;
     visited[adjvex] = TRUE;
     printf("%c ", GL->adjList[adjvex].data);  /* 打印顶点,也可以其它操作 */
