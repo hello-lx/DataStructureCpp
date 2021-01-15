@@ -2,38 +2,39 @@
 
 // 5.3-综合题02：设计一个算法，判断一个无向图是否为一颗树
 
-int FirstNeighbor(GraphQ53 &G, int v)
+int FirstNeighbor(graphQ53 &G, int v)
 {
     return G.adjList[v].firstEdge->adjvex;
 }
 
-int NextNeighbor(GraphQ53 &G, int v, int &w)
+int NextNeighbor(graphQ53 &G, int v, int &w)
 {
-    // while (w < G.vertexNum)
-    // {
-    //     if(G.A[v][++w] != nullptr)
-    //         return w;
-    // }
-    return -1;
+    ENode* node = G.adjList[v].firstEdge;
+    for(int i=0; i<w-1; i++)
+    {
+        if(node->next != nullptr)
+            node = node->next;
+    }
+    if(node->next != nullptr)
+        return node->next->adjvex;
+    else
+        return -1;
 }
 
-// void DFS(GraphQ53 &G, int &v, int &VNum, int &ENum, int visited[]) {
-// 	visited[v] = true;
-// 	VNum++;
-//     int w = 0;
-// 	// int w = NextNeighbor(G, v, visited);
-// 	w = NextNeighbor(G, v, w);
-// 	while (w!=-1)
-// 	{
-// 		ENum++;
-// 		if (!visited[w])
-// 			DFS(G, v, VNum, ENum, visited);
-// 		w = NextNeighbor(G, v, w);
-// 	}
-//     v++;
-// }
+void DFS(graphQ53 &G, int v, int &VNum, int &ENum, bool visited[vexNum]) {
+	visited[v] = true;
+	VNum++;
+	int w = FirstNeighbor(G, v);
+	while (w!=-1)
+	{
+		ENum++;
+		if (!visited[w])
+			DFS(G, v, VNum, ENum, visited);
+		w = NextNeighbor(G, v, w);
+	}
+}
 
-bool GraphIsTree(GraphQ53 &G) {
+bool GraphIsTree(graphQ53 &G) {
 	for (int i = 0; i < G.vertexNum; i++)
 	{
 		visits[i] = false;
@@ -49,36 +50,8 @@ bool GraphIsTree(GraphQ53 &G) {
 	else
 		return false;
 }
- 
-void DFS(GraphQ53 &g, int vexId, int &vn, int &ve, bool visited[9])
-{
-    ENode* p;
 
-    if (!visited[vexId])
-    {
-        vn++;
-        visited[vexId] = true;
-    }
-
-    p = g.adjList[vexId].firstEdge;
-    while(p)
-    {
-        if(!visited[p->adjvex]) 
-        {
-            ve++;
-            visited[vexId] = true;
-            DFS(g, p->adjvex, vn, ve, visited);
-        }
-    }
-    // if ((g.A[vexId][i] < INF_MAX) && (visited[i] == false))
-    // {
-    //     ve++;
-    //     visited[i] = true;
-    //     DFS(g, i, vn, ve, visited);
-    // }
-}
-
-bool isTree(GraphQ53 *g)
+bool isTree(graphQ53 *g)
 {
     for(int i=0; i<g->vertexNum; i++)
     {
@@ -102,7 +75,7 @@ bool isTree(GraphQ53 *g)
     }
 }
 
-void CreateALGraph(GraphQ53 &graph)
+void CreateALGraph(GraphQ53 *graph)
 {
     int **A = new int*[vexNum];
     for(int i=0; i<vexNum; i++)
@@ -127,11 +100,11 @@ void CreateALGraph(GraphQ53 &graph)
         for(int j=0; j<vexNum; j++)
             A[j][i] = A[i][j];
 
-    graph = (GraphQ53)malloc(sizeof(GraphQ53));
+    *graph = (GraphQ53)malloc(sizeof(graphQ53));
     ENode *node;
     for(int i=0; i<vexNum; i++)
     {
-        graph.adjList[i].firstEdge = nullptr;
+        (*graph)->adjList[i].firstEdge = nullptr;
         for(int j=0; j<vexNum; j++)
         {
             if(A[i][j] != INF_MAX)
@@ -139,8 +112,8 @@ void CreateALGraph(GraphQ53 &graph)
                 node = (ENode*)malloc(sizeof(ENode));
                 node->adjvex = j;
                 node->weight = A[i][j];
-                node->next = graph.adjList[i].firstEdge;
-                graph.adjList[j].firstEdge = node;
+                node->next = (*graph)->adjList[i].firstEdge;
+                (*graph)->adjList[j].firstEdge = node;
             }
         }
     }
@@ -149,7 +122,7 @@ void CreateALGraph(GraphQ53 &graph)
 void hw02(){
     // Graph： 邻接图链表
     GraphQ53 graph;
-    CreateALGraph(graph);
+    CreateALGraph(&graph);
     isTree(graph);
 }
 

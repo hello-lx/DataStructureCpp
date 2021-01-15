@@ -17,27 +17,27 @@ typedef struct ENode
     struct ENode *next; 
 } ENode;
 
-typedef struct VertexNode
+typedef struct VNode
 {
     int in;
     int data;
     ENode *firstEdge;
-} VertexNode, AdjList[vexNum];
+} VNode, ADJList[vexNum];
 
 
-typedef struct GraphQ53
+typedef struct
 {
     int vertexNum, edgeNum;  // 顶点数
     char vexs[vexNum];
-    AdjList adjList;
-} graphQ53, GraphQ53*;
+    ADJList adjList;
+} graphQ53, *GraphQ53;
 
 
-int FirstNeighbor(GraphQ53 &G, int v);
+int FirstNeighbor(graphQ53 &G, int v);
 
-void DFS(GraphQ53 &g, int vexId, int &vn, int &ve, bool visited[9]);
+void DFS(graphQ53 &G, int v, int &VNum, int &ENum, bool visited[vexNum]);
 
-bool isTree(GraphQ53 g);
+bool isTree(graphQ53 g);
 
 void hw02();
 
