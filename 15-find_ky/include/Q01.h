@@ -4,16 +4,16 @@
 using namespace std;
 
 // 顺序表
-class SeqList
+typedef struct SeqList
 {
-    int key[2];
-    int tableLen;
-};
+    int *elem;
+    int length;
+} SeqList;
+
+SeqList* createSeqList(int size);
 
 // 折半查找： 一定是顺序表
-void binarySearch(){
-
-}
+void binarySearch();
 
 
 #endif
