@@ -258,6 +258,9 @@ void hw03()
     Graph03* g = CreateGraph03();
     // CreateGraph03(&g);  // bug??
     
+    for(int i=0; i<g->vexNum; i++)
+        cout << g->visited[i] << ' ';
+    cout << endl;
     // ENode03* e;
     // cout<<"邻接图创建完毕： 顶点数——"<<g->vexNum<<", 边数——"<<g->edgeNum<<endl;
     // for(int i=0; i<g->vexNum; i++)
@@ -284,19 +287,187 @@ void hw03()
 
 
 
-// 5.3-综合题04：邻接表(有向图)：分别用深度优先和广度优先判断是否右 Vi 到 Vj 的路径 (i != j)
-void findPathByBFS()
+// 5.3-综合题04：邻接表(有向图)：分别用深度优先和广度优先判断是否有 Vi 到 Vj 的路径 (i != j)
+Graph04* CreateGraph04()
 {
+    Graph04 *g;
+    int **arc = new int*[MAX04];
+    for(int i=0; i<MAX04; i++)
+    {
+        arc[i] = new int[MAX04];
+        for(int j=0; j<MAX04; j++)
+            arc[i][j] = INF04;
+    }    
     
+    arc[0][1] = 1;
+    arc[0][5] = 1;
+    arc[1][2] = 1;
+    arc[1][6] = 1;
+    arc[1][8] = 1;
+    arc[2][8] = 1;
+    arc[3][4] = 1;
+    arc[5][4] = 1;
+    arc[6][7] = 1;
+    arc[7][4] = 1;
+    arc[8][3] = 1;
+
+    // for(int i=0; i<MAX04; i++)
+    // {
+    //     for(int j=0; j<MAX04; j++)
+    //         cout << arc[i][j] << '\t';
+    //     cout << endl;
+    // }
+    
+    
+    g = (Graph04*)malloc(sizeof(Graph04));
+    ENode04 *e;
+    int vexNum = 0, edgeNum = 0;
+    for(int i=0; i<MAX04; i++)
+    {
+        g->adjList[i].vex = i;
+        vexNum++;
+        for(int j=0; j<MAX04; j++)
+        {
+            if(arc[i][j] != INF04)
+            {
+                g->adjList[j].in++;
+                g->adjList[i].out++;
+                edgeNum++;
+                e = (ENode04*)malloc(sizeof(ENode04));
+                e->adjvex = j;
+                e->weight = arc[i][j];
+                e->next = g->adjList[i].firstEdge;
+                g->adjList[i].firstEdge = e;
+            }
+        }
+    }
+    g->vexNum = vexNum;
+    g->edgeNum = edgeNum;  // 无向图
+    memset(g->visited, 0, sizeof(g->visited));
+
+    // cout<<"邻接图创建完毕： 顶点数——"<<g->vexNum<<", 边数——"<<g->edgeNum<<endl;
+    // for(int i=0; i<g->vexNum; i++)
+    //     cout << g->visited[i] << ' ';
+    // cout << endl;
+    // cout << endl;
+    // for(int i=0; i<g->vexNum; i++)
+    // {
+    //     cout << g->adjList[i].vex << "(入度"<< g->adjList[i].in <<"): ";
+    //     e = g->adjList[i].firstEdge;
+    //     while(e != nullptr)
+    //     {
+    //         cout<<"-->"<<e->adjvex;
+    //         e = e->next;
+    //     }
+    //     cout << endl;
+    // }
+
+    return g;
 }
 
-
-void findPathByDFS()
+bool BFS04(Graph04 *g, int &vexIdStart, int &vexIdEnd)
 {
+    if(vexIdStart == vexIdEnd)
+        return true;
 
+    cout << vexIdStart << ' ' << vexIdEnd << endl;
+    ENode04* e;
+    g->visited[vexIdStart] = true;
+    e = g->adjList[vexIdStart].firstEdge;
+    while(e)
+    {
+        vexIdStart = e->adjvex;
+        //因为要将每一个结果都要返回，
+        //~~如果只是冒然返回isExitedPathDFS的结果，那有一条走不通就都走不通了~~ 
+        //如果没有!visited[a]，会陷入死循环
+        //所以这里答案巧妙地做成在if语句里走这个结果，而且只需要对的结果，错误的一律不反回
+        if(!g->visited[vexIdStart] && BFS04(g, vexIdStart, vexIdEnd))
+            return true;
+        e = e->next;
+    }
+
+    // 所有节点遍历完毕，未找到路径
+    return false;
+}
+
+bool findPathByBFS(Graph04 *g, int &vexIdStart, int &vexIdEnd)
+{
+    cout << "BFS" << endl;
+    if(BFS04(g, vexIdStart, vexIdEnd))
+    {
+        cout << "true" << endl;
+        return true;
+    }
+
+    cout << "false" << endl;
+    return false;
+}
+
+bool DFS04(Graph04 *g, int &vexIdStart, int &vexIdEnd)
+{
+    if(vexIdStart == vexIdEnd)
+        return true;
+
+    // cout << vexIdStart << ' ' << vexIdEnd << endl;
+    g->visited[vexIdStart] = true;
+    cout << vexIdStart << ' ' << vexIdEnd << endl;
+    ENode04* e = g->adjList[vexIdStart].firstEdge;
+    while(e)
+    {
+        if(g->visited[e->adjvex] == 0 && DFS04(g, e->adjvex, vexIdEnd))
+            return true;
+        e = e->next;
+    }
+    return false;
+}
+
+bool findPathByDFS(Graph04 *g, int &vexIdStart, int &vexIdEnd)
+{
+    cout << "DFS" << endl;
+    if(DFS04(g, vexIdStart, vexIdEnd))
+    {
+        cout << "true" << endl;
+        return true;
+    }
+
+    cout << "false" << endl;
+    return false;    
 }
 
 
 void hw04(){
+    Graph04 *g = CreateGraph04();
+    // for(int i=0; i<g->vexNum; i++)
+    // {
+    //     cout << g->adjList[i].vex << "(入度"<< g->adjList[i].in <<"): ";
+    //     e = g->adjList[i].firstEdge;
+    //     while(e != nullptr)
+    //     {
+    //         cout<<"-->"<<e->adjvex;
+    //         e = e->next;
+    //     }
+    //     cout << endl;
+    // }
 
+
+
+    int startVexId1 = 1, endVexId1 = 4;  // true
+    findPathByDFS(g, startVexId1, endVexId1);
+
+    int startVexId2 = 1, endVexId2 = 4;  // true
+    for(int i=0; i<g->vexNum; i++)
+        g->visited[i] = 0;
+    findPathByBFS(g, startVexId2, endVexId2);
+
+
+
+    int startVexId3 = 2, endVexId3 = 5;  // false
+    for(int i=0; i<g->vexNum; i++)
+        g->visited[i] = 0;
+    findPathByDFS(g, startVexId3, endVexId3);
+
+    int startVexId4 = 2, endVexId4 = 5;  // false
+    for(int i=0; i<g->vexNum; i++)
+        g->visited[i] = 0;
+    findPathByBFS(g, startVexId4, endVexId4);
 }

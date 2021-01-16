@@ -4,6 +4,7 @@
 #include<iostream>
 #include<stdlib.h>
 #include<stack>
+#include<queue>
 #include<stdio.h>
 #include<string.h>
 using namespace std;
@@ -83,6 +84,36 @@ void hw03();
 
 /* 5.3-综合题04：邻接表(有向图)：分别用深度优先和广度优先判断是否右 Vi 到 Vj 的路径 (i != j)
 */
+#define MAX04 9
+#define INF04 99999
+typedef struct ENode04
+{
+    int adjvex = -1;
+    int weight = -1;
+    struct ENode04 *next = nullptr;
+} ENode04;
+
+typedef struct VNode04
+{
+    int vex = -1;
+    int in = 0, out = 0;
+    ENode04 *firstEdge = nullptr;
+} VNode04, AdjList04[MAX04];
+
+typedef struct
+{
+    AdjList04 adjList;
+    int vexNum;
+    int edgeNum;
+    int visited[MAX04];
+} Graph04;
+
+Graph04* CreateGraph04();
+
+bool findPathByBFS(Graph04 *g, int &vexIdStart, int &vexIdEnd);
+
+bool findPathByDFS(Graph04 *g, int &vexIdStart, int &vexIdEnd);
+
 void hw04();
 
 #endif
