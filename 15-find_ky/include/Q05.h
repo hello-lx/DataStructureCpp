@@ -3,7 +3,7 @@
 #include<iostream>
 using namespace std;
 
-/** 散列表
+/** 散列表: https://www.cnblogs.com/liuteng/p/6426003.html
  * 散列函数：取余
  * Hi = (H(key) + di) % m, i = 0,1,2,...,k(k<=m-1)，m为散列表表长，di为增量序列
  * di计算：线性探查法、拉链法
