@@ -187,7 +187,6 @@ int hash_(const std::string & key, const int &tableSize)
         {
             hashVal += (hashVal << 5) + *it;
         }
-
     }
     return hashVal %= tableSize;
 }

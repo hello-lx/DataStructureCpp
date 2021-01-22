@@ -11,5 +11,12 @@ using namespace std;
  * 2. KMP算法
  */
 
+// 1. 暴力匹配
+int hardMatch(string haystack, string needle);
+
+
+// 2. KMP算法
+void cal_next(char *str, int *next, int len);
+int KMP(char *str, int slen, char *ptr, int plen);
 
 #endif

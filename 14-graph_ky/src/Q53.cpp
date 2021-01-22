@@ -460,7 +460,6 @@ void hw04(){
     findPathByBFS(g, startVexId2, endVexId2);
 
 
-
     int startVexId3 = 2, endVexId3 = 5;  // false
     for(int i=0; i<g->vexNum; i++)
         g->visited[i] = 0;

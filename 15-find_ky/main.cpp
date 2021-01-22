@@ -1,7 +1,7 @@
 #include <Q01.h>
 #include <Q02.h>
-// #include <Q03.hpp>
-#include <Q03_.hpp>
+#include <Q03.hpp>
+// #include <Q03_.hpp>
 #include <Q04.h>
 #include <Q05.h>
 #include <Q06.h>
@@ -49,16 +49,22 @@ void test05()
 
 void test06()
 {
-    
+    char *str = "bacbababadababacambabacaddababacasdsd";
+    char *ptr = "ababaca";
+    int a = KMP(str, 36, ptr, 7);
+
+    cout << "hard match: " << hardMatch(str, ptr) << endl;
+    cout << "KMP: " << a << endl;
 }
 
 int main(int argc, char const *argv[])
 {
     // test01();
     // test02();
-    test03();
+    // test03();
     test04();
     test05();
+    test06();
 
     // testLinkStack();
     // testLinkQueue();

@@ -9,7 +9,8 @@ add_library(sharedLib SHARED
                 "src/Q01.cc"
                 "src/Q02.cc"
                 "src/Q04.cc"
-                "src/Q05.cc")
+                "src/Q05.cc"
+                "src/Q06.cc")
 
 
 add_executable(m main.cpp)
