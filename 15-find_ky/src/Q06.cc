@@ -43,7 +43,7 @@ int hardMatch(string haystack, string needle) {
 /* ------------ KMP ------------ */
 void cal_next(char *str, int *next, int len)  
 {       // 计算与第一个字母与其他字母时候匹配，若匹配为0，不匹配为-1
-    next[0] = -1；
+    next[0] = -1;
     int k = -1;
     
     for(int q=1; q<=len-1; q++)
@@ -68,7 +68,21 @@ int KMP(char *str, int slen, char *ptr, int plen)
     int k = -1;
     for(int i=0; i<slen; i++)
     {
-        d
+        while(k > -1 && ptr[k+1] != str[i])
+            k = next[k];  //往前回溯
+        if(ptr[k + 1] == str[i])
+            k = k+1;
+        
+        // ptr匹配到最后一个
+        if(k == plen - 1)
+        {
+            // 寻找下一个
+            // k = -1;
+            // i = i - plen + 1;
+            return i - plen + 1;
+        }
     }
+
+    return -1;
 }
 /* ------------ KMP ------------ */
