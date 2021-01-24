@@ -1,6 +1,7 @@
 #ifndef Q03_H
 #define Q03_H
 #include<iostream>
+#include<vector>
 using namespace std;
 
 /**
@@ -12,13 +13,25 @@ using namespace std;
 // (1) 简单选择排序 time: O(n^2)   space: O(1)    不稳定  顺序存储和链式存储
 void selectSort(int A[], int n);
 
+
 // (2) 堆排序: 大根堆  time: O(n*log2(n))   space: O(1)  不稳定  顺序存储(链式存储)
-void AdjustDown(int A[], int k, int len);  // 输出
+// 大根堆(升序)：每个结点的值都大于或等于其左右孩子结点的值
+// 小顶堆(降序)：每个结点的值都小于或等于其左右孩子结点的值
+void buildMaxHeap(int A[], int n);
+void maxHeapIfy(int A[], int i,int n);
 
-void AdjustUp(int A[], int len);  // 插入
+/*
+blog: https://zhuanlan.zhihu.com/p/75894663
 
-void buildMaxHeap(int A[], int len);
+1. 首先用前n个元素的无序序列，构建成大顶堆；构建大顶堆时，从最后一个非叶节点n/2-1的位置
+开始检查节点与其孩子值是否满足大顶堆的要求，不满足则需要调整该元素与其孩子节点元素的位置，
+如果有调整，则调整过的孩子节点（子树）也要递归调用调整子树中的元素值位置，保证子树也是大顶堆。
+然后按照层次遍历的顺序依次往前，从右到左，从下到上调整所有非叶节点的值，最后根节点的值就是最大值。
 
-void HeapSort(int A[], int len);
+2. 得到大顶堆后将根节点与数组待排序部分的最后一个元素交换位置，即将最大元素"沉"到数组末端；
 
+3. 交换过后待排序数组长度减一，再对新长度的待排序数组重复上述过程，直到整个数组排序完成。
+如果我们要数组整体递增有序，则每次构建的是大顶堆；如果我们要数组整体递减有序，则每次构建的是小顶堆。
+*/
+void heapSort(int A[], int n);
 #endif
