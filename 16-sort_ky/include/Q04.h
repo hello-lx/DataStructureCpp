@@ -2,7 +2,6 @@
 #define Q04_H
 #include<iostream>
 using namespace std;
-#define N 100
 
 
 /**
@@ -10,10 +9,6 @@ using namespace std;
  */
 
 // time: O(n*log2(n))  space: O(n)       稳定    顺序存储和链式存储
-void MergeSort(int A[], int low, int high);
-
-void Merge(int A[], int low, int mid, int high);
-
-void test04(int n);
-
+void merge_sort(int *data, int start, int end, int *result);
+void merge(int *data,int start,int end,int *result);
 #endif

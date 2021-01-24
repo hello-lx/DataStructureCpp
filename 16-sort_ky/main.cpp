@@ -66,23 +66,45 @@ void test03()
     // selectSort(A, size);
     // printArr(A, size);
 
-    printArr(A, size);
-    heapSort(A, size);
-    printArr(A, size);
+    // printArr(A, size);
+    // heapSort(A, size);
+    // printArr(A, size);
 }
 
 void test04()
-{}
+{
+    int data[] = {9,6,7,22,20,33,16,20};
+    const int length = 8;
+    int result[length];
+    cout << "Before sorted:" << endl;
+    for(int i = 0;i < length;++i)
+        cout << data[i] << "  ";
+    cout << endl;
+    cout << "After sorted:" << endl;
+    merge_sort(data,0,length-1,result);
+    for(int i = 0;i < length;++i)
+        cout << data[i] << "  ";
+    cout << endl;
+
+    return;
+}
 
 void test05()
-{}
+{
+    int data[] = {9,6,7,22,20,33,16,20};
+    const int length = 8;
+
+    printArr(data, length);
+    radixsort(data, length);    
+    printArr(data, length);
+}
 
 int main(int argc, char const *argv[])
 {
     test01();
     test02();
     test03();
-    test04();
+    // test04();
     test05();
     
     return 0;
